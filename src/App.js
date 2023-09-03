@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Auth } from './components/Auth';
-import { db } from './config/firebase';
-import { getDocs, collection, addDoc } from 'firebase/firestore'
+import { db, auth, storage } from './config/firebase';
+import { getDocs, collection, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore'
+import { ref, uploadBytes } from 'firebase/storage';
 
 function App() {
 
@@ -12,6 +13,13 @@ function App() {
   const [newMovieTitle, setNewMovieTitle] = useState("");
   const [newReleaseDate, setnewReleaseDate] = useState(0);
   const [isNewMoiveOscar, setIsNewMoiveOscar] = useState(false);
+
+  // update title states
+  const [updateTitle, setUpdateTitle] = useState("");
+
+  // file upload state
+  const [fileUpload, setFileUpload] = useState(null)
+
 
   const moviesCollectionRef = collection(db, "movies");
 
@@ -45,12 +53,39 @@ function App() {
       await addDoc(moviesCollectionRef, {
         title: newMovieTitle, 
         relaseDate: newReleaseDate, 
-        receivedOscar: isNewMoiveOscar
+        receivedOscar: isNewMoiveOscar,
+        userId: auth?.currentUser?.uid
       });
       getMovieList();
     } catch(err){ 
       console.error(err);
     }
+  }
+ 
+  const deleteMovie = async (id) => { 
+    const movieDoc = doc(db, "movies", id);
+    await deleteDoc(movieDoc);
+
+    getMovieList();
+  }
+
+  const updateMovieTitle = async (id) => { 
+    const movieDoc = doc(db, "movies", id);
+    await updateDoc(movieDoc, {title: updateTitle});
+    getMovieList();
+  }
+
+  const uploadFile = async () => { 
+    if(!fileUpload) return;
+
+    const filesFolderRef = ref(storage, `projectFolder/${fileUpload.name}`);
+
+    try{
+      await uploadBytes(filesFolderRef, fileUpload);
+    } catch(err){
+      console.error(err);
+    }
+
   }
 
   return (
@@ -73,8 +108,18 @@ function App() {
           <div>
             <h1 style={{color: movie.receivedOscar ? "green" : "red"}}>{movie.title}</h1>
             <p>relase: {movie.relaseDate}</p>
+            <button onClick={()=>deleteMovie(movie.id)}>delete</button>
+            <br/>
+            <input placeholder='new Title..'  onChange={(e)=>setUpdateTitle(e.target.value)}/>
+            <button onClick={()=>updateMovieTitle(movie.id)}>update</button>
           </div>
         ))}
+      </div>
+
+          <br />
+      <div>
+          <input type='file' onChange={(e)=> setFileUpload(e.target.files[0])}/>
+          <button onClick={uploadFile}>upload file</button>
       </div>
     </div>
   );
