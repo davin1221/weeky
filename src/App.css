@@ -1,0 +1,214 @@
+@font-face {
+  font-family: 'NeoDunggeunmo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'NeoDunggeunmo';
+}
+
+.App { 
+  margin: auto;
+  max-width: 480px;
+  height: 100vh;
+}
+
+
+/* Logo Page */
+.LogoPage { 
+  margin: auto;
+  max-width: 480px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.LogoPage img { 
+  width: 80%;
+}
+
+
+/* Login */
+.Login {
+  margin: auto;
+  max-width: 480px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.Login .logo_area { 
+  height: 100px;
+  text-align: center;
+  margin-top: 150px;
+  margin-bottom: 30px;
+}
+
+.Login .logo_area img{
+  height: 100%;
+}
+
+.Login .login_area{ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login .login_area div { 
+  width: 80%;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login .login_area div input { 
+  width: 350px;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 0 15px;
+  border: 2px solid #000000;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.Login .login_area div label{
+  position: absolute;
+  top: 40%;
+  left: -20px;
+  transform: translateY(-50%);
+  color: #000000;
+  font-size: 15px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.Login .login_area div  input:focus{
+  border: 2px solid #000000;
+}
+
+.Login .login_area div  input:focus ~ label,
+.Login .login_area div  input:valid ~ label{
+  top: 0;
+  left: -20px;
+  font-size: 13px;
+  padding: 0 2px;
+  background: white;
+}
+
+.Login .login_area button { 
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  height: 35px;
+  width: 350px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.Login .login_area .login_btn { 
+  background-color: #000000;
+  color: white;
+}
+
+.Login .login_area .login_google_btn{ 
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Login .login_area .login_google_btn img { 
+  width: 20px;
+  margin-left: 10px;
+}
+
+.Login hr { 
+  margin: 30px 0px;
+  width: 85%;
+  background-color: #000000;
+  height: 3px;
+}
+
+.signin_area button { 
+  width: 350px;  
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  height: 35px;
+  background-color: #cacaca;
+  cursor: pointer;
+}
+
+.signin_box { 
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out, visibility 0s 0.3s;
+}
+
+.signin_box.active { 
+  visibility: visible; 
+  transform: translateY(0);
+  transition-delay: 0s; 
+}
+
+/* Sign In */
+.SignIn { 
+  margin-top: 20px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 3px double gray;
+  padding: 10px 5px
+}
+
+.SignIn div { 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.SignIn div label {
+  color: gray;
+}
+
+.SignIn div input { 
+  width: 300px;
+  height: 30px;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 0 15px;
+  border: 1px solid gray;
+  background: transparent;
+  color: gray;
+  outline: none;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.SignIn button { 
+  width: 300px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  background-color: gray;
+  color: white;
+}
+
