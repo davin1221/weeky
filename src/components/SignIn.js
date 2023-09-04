@@ -9,7 +9,7 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
 
     // 회원가입 함수 
-    const signIn = async () => { 
+    const handleSignIn = async () => { 
 
         // 이메일 정규표현식 
         let emailCheck = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
@@ -22,9 +22,13 @@ const SignIn = () => {
         // firebase로 정보 보내기 
         await createUserWithEmailAndPassword(auth, email, password);
 
+        // 회원가입 완료 안내 
+        alert(email + " 님의 회원가입이 완료되었습니다.")
+
         // 가입 완료 후 input 비우기 
         setEmail("");
         setPassword("");
+
     }
 
 
@@ -38,7 +42,7 @@ const SignIn = () => {
             <input type="password" onChange={(e)=> setPassword(e.target.value)} value={password}/>
         </div>
 
-        <button onClick={signIn}>Sign in</button>
+        <button onClick={handleSignIn}>Sign in</button>
     </div>
 }
 

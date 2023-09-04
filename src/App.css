@@ -156,14 +156,18 @@
 }
 
 .signin_box { 
+  opacity: 0;
   visibility: hidden;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out, visibility 0s 0.3s;
+  transform: translateY(-10%);
+  transition: transform 0.3s ease-in-out, 
+              visibility 0s 0.3s,
+              opacity 0.3s ease-in-out ;
 }
 
 .signin_box.active { 
   visibility: visible; 
   transform: translateY(0);
+  opacity: 1;
   transition-delay: 0s; 
 }
 
