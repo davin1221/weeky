@@ -18,8 +18,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const navigate = useNavigate();
 
-    console.log(auth?.currentUser?.email);
-
+    // 로그인 함수 
     const handleLogin = async () => { 
         try{ 
             await signInWithEmailAndPassword(auth, email, password);
@@ -56,7 +55,7 @@ const Login = () => {
     return <div className="Login">
 
         <div className="logo_area">
-          <img src= {process.env.PUBLIC_URL + '/weeky_logo.png'} alt="img_logoPage"/>
+          <img src= {process.env.PUBLIC_URL + '/weeky_logo.png'} alt="logo_logoPage"/>
         </div>
 
         <div className="login_area">
