@@ -5,6 +5,7 @@ import './App.css';
 import LogoPage from './pages/LogoPage';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import MySubject from './pages/MySubject';
 
 function App() {
 
@@ -13,9 +14,10 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route path='/LogoPage' element={<LogoPage />}/>
-        <Route path='/Login' element={<Login />} />
+        <Route path='/logoPage' element={<LogoPage />}/>
+        <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
+        <Route path='/mySubject' element={<MySubject />} />
       </Routes>
     </BrowserRouter>
    
