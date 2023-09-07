@@ -537,6 +537,7 @@ nav .burger-bar.unclicked{
   align-items: center;
   justify-content: center;
   margin: 2px;
+  padding: 3px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
@@ -581,6 +582,7 @@ nav .burger-bar.unclicked{
   width: 35px;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .MySubject .make_subject_area .chromePicker{ 
