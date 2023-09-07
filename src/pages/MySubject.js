@@ -17,17 +17,30 @@ import { ChromePicker } from "react-color";
 // firebase 로그인 정보 
 import { auth } from "../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
 const MySubject = () =>{ 
-
+    
+ 
     // redux ----------------------------
     let subject = useSelector((state)=> {return state.subject}) // store
     let dispatch = useDispatch(); // dispatch 
 
     // 해당 유저의 subject ----------------------------
-    const uid = auth?.currentUser.uid; // user 정보 
+    const [uid, setUid] = useState(); // userId
+    
+    // userId가 null일때 오류 안나오게 하기 
+    useEffect(()=> { 
+        const currentUserUid = auth?.currentUser?.uid;
+        if (currentUserUid === null) {
+            console.log("uid없음");
+        } else {
+            setUid(currentUserUid); 
+        }
+    }, []);
+
     const filteredSubject = subject.filter((it)=> it.userId === uid);
 
     // 색상 선택 ----------------------------
@@ -55,6 +68,10 @@ const MySubject = () =>{
     const handleDeleteSubject = (id) => { 
         dispatch(deleteSubject(id));
     }
+
+
+
+
 
     return <div className="MySubject">
 
