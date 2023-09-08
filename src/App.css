@@ -424,14 +424,6 @@ nav .burger-bar.unclicked{
   margin-right: 5px;
 }
 
-.Home .goal_item .sub_영어{ 
-  background-color: pink;
-}
-
-.Home .goal_item .sub_운동{ 
-  background-color: rgb(176, 217, 234);
-}
-
 .Home .goal_item > span:nth-child(3){
   font-size: 15px;
 }

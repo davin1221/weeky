@@ -59,7 +59,7 @@ const weekPlan = createSlice({
     initialState: [
         {
             weekId: "wp_4qPC_1680758400000",
-            wrritenDate: 1680758400000,
+            writtenDate: 1680758400000,
             userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
             goal: [
                 {
@@ -77,8 +77,8 @@ const weekPlan = createSlice({
             ]
         },
         {
-            weekId: "wp_4qPC_1681401600000",
-            wrritenDate: 1681401600000,
+            weekId: "wp_4qPC_1694358000000",
+            writtenDate: 1694358000000,
             userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
             goal: [
                 {
@@ -97,7 +97,7 @@ const weekPlan = createSlice({
         },
         {
             weekId: "wp_Lfn5_1680758400000",
-            wrritenDate: 1680758400000,
+            writtenDate: 1680758400000,
             userId: "Lfn5WQtmuIPbTIaw8vpQdDIiKs62",
             goal: [
                 {
@@ -115,8 +115,8 @@ const weekPlan = createSlice({
             ]
         },
         {
-            weekId: "wp_Lfn5_1681401600000",
-            wrritenDate: 1681401600000,
+            weekId: "wp_Lfn5_1694358000000",
+            writtenDate: 1694358000000,
             userId: "Lfn5WQtmuIPbTIaw8vpQdDIiKs62",
             goal: [
                 {
