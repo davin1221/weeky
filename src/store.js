@@ -53,13 +53,13 @@ const subject = createSlice({
 });
 
 
-// 한 주 계획 --------------------------------------------
+// 한 주 계획(Week Plan) --------------------------------------------
 const weekPlan = createSlice({
     name: "weekPlan",
     initialState: [
         {
-            weekId: "wp_4qPC_1680758400000",
-            writtenDate: 1680758400000,
+            weekId: "wp_4qPC_1693753200000",
+            writtenDate: 1693753200000,
             userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
             goal: [
                 {
@@ -85,19 +85,19 @@ const weekPlan = createSlice({
                     weekGoalId: "wg_4qPC_런데이3회이상",
                     weekGoalSubject: "운동",
                     weekGoalContent: "런데이 3회 이상",
-                    weekGoalComplete: true
+                    weekGoalComplete: false
                 },
                 {
                   weekGoalId: "wg_4qPC_인강완강",
                   weekGoalSubject: "영어",
                   weekGoalContent: "인강 완강",
-                  weekGoalComplete: false
+                  weekGoalComplete: true
                 }
             ]
         },
         {
-            weekId: "wp_Lfn5_1680758400000",
-            writtenDate: 1680758400000,
+            weekId: "wp_Lfn5_1693753200000",
+            writtenDate: 1693753200000,
             userId: "Lfn5WQtmuIPbTIaw8vpQdDIiKs62",
             goal: [
                 {
@@ -139,11 +139,161 @@ const weekPlan = createSlice({
     }
 })
 
+
+// 하루 계획(day Plan) --------------------------------------------
+const dayPlan = createSlice({
+    name: "dayPlan",
+    initialState: [
+        {
+            dailyId: "dp_4qPCM_1693753200000",
+            writtenDate: 1693753200000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_영단어20개",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "영단어 20개",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_문법인강2개",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "문법 인강 2개",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_런데이30분",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "런데이30분",
+                    dailyGoalComplete: false
+                }
+            ]
+        },
+        {
+            dailyId: "dp_4qPCM_1693839600000",
+            writtenDate: 1693839600000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_영어작문숙제",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "영어 작문 숙제",
+                    dailyGoalComplete: false
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_문법챕터3,4",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "문법 챕터 3,4",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_헬스장가기",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "헬스장 가기",
+                    dailyGoalComplete: false
+                }
+            ]
+        },
+        {
+            dailyId: "dp_4qPCM_1693926000000",
+            writtenDate: 1693926000000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_숙어10개암기",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "숙어 10개 암기",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_헬스장가기",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "헬스장 가기",
+                    dailyGoalComplete: true
+                }
+            ]
+        },
+        {
+            dailyId: "dp_4qPCM_1694012400000",
+            writtenDate: 1694012400000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_영단어20개",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "영단어 20개",
+                    dailyGoalComplete: false
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_헬스장가기",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "헬스장 가기",
+                    dailyGoalComplete: true
+                }
+            ]
+        },
+        {
+            dailyId: "dp_4qPCM_1694098800000",
+            writtenDate: 1694098800000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_문법인강1개듣기",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "문법 인강 1개 듣기",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_헬스장가기",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "헬스장 가기",
+                    dailyGoalComplete: true
+                }
+            ]
+        },
+        {
+            dailyId: "dp_4qPCM_1694185200000",
+            writtenDate: 1694185200000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_영어스터디준비",
+                    dailyGoalSubject: "영어",
+                    dailyGoalContent: "영어 스터디 준비",
+                    dailyGoalComplete: true
+                },
+                {
+                    dailyGoalId: "dg_4qPCM_홈트30분",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "홈트 30분",
+                    dailyGoalComplete: false
+                }
+            ]
+        },{
+            dailyId: "dp_4qPCM_1694271600000",
+            writtenDate: 1694271600000,
+            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
+            goal: [
+                {
+                    dailyGoalId: "dg_4qPCM_스트레침30분",
+                    dailyGoalSubject: "운동",
+                    dailyGoalContent: "스트레칭 30분",
+                    dailyGoalComplete: true
+                }
+            ]
+        },
+    ],
+    reducers:{
+
+    }
+})
+
 export let { addSubject, deleteSubject } = subject.actions;
 
 export default configureStore({
   reducer: {
     subject: subject.reducer,
-    weekPlan: weekPlan.reducer 
+    weekPlan: weekPlan.reducer,
+    dayPlan: dayPlan.reducer
   },
 });
