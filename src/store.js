@@ -252,24 +252,6 @@ const dayPlan = createSlice({
             ]
         },
         {
-            dailyId: "dp_4qPCM_1694185200000",
-            writtenDate: 1694185200000,
-            userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
-            goal: [
-                {
-                    dailyGoalId: "dg_4qPCM_영어스터디준비",
-                    dailyGoalSubject: "영어",
-                    dailyGoalContent: "영어 스터디 준비",
-                    dailyGoalComplete: true
-                },
-                {
-                    dailyGoalId: "dg_4qPCM_홈트30분",
-                    dailyGoalSubject: "운동",
-                    dailyGoalContent: "홈트 30분",
-                    dailyGoalComplete: false
-                }
-            ]
-        },{
             dailyId: "dp_4qPCM_1694271600000",
             writtenDate: 1694271600000,
             userId: "4qPCMlanKiXhsIDIKeUrIZxi7qm1",
