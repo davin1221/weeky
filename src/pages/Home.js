@@ -166,7 +166,7 @@ const Home = () => {
                 <div className="home_daily_item">
                 <div>
                  
-                   <span>it.writtenDate</span>
+                   <span>9/4</span>
                   <span>
                         {(() => {
                         let day = "";
