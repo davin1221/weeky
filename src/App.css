@@ -407,13 +407,14 @@ nav .burger-bar.unclicked{
   align-items: center;
   height: 20px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .Home .goal_item > span:nth-child(1){ 
   margin-right: 5px;
   width: 14px;
   height: 14px;
-  cursor: pointer;
+  /* cursor: pointer; */
   margin-bottom: 2px;
 }
 
@@ -586,4 +587,16 @@ nav .burger-bar.unclicked{
 
 .MySubject .make_subject_area .chromePicker.true{ 
   visibility: inherit;
+}
+
+
+/* Week Goal ----------------------------- */
+.WeekGoal{ 
+  margin: auto;
+  max-width: 480px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

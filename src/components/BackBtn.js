@@ -9,7 +9,11 @@ const BackBtn = () => {
 
 
     return <>
-        <FontAwesomeIcon icon={faChevronLeft} onClick={()=>navigate(-1)}/>
+        <FontAwesomeIcon 
+        icon={faChevronLeft} 
+        onClick={()=>navigate(-1)}
+        style={{cursor:'pointer'}}
+        />
     </>
 }
 

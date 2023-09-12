@@ -7,7 +7,7 @@ import { faCartShopping, faEye } from "@fortawesome/free-solid-svg-icons";
 import { auth } from "../config/firebase";
 import { getAuth, signOut } from "firebase/auth";
 
-const NavBar = ({navRight}) => {
+const NavBar = ({navLeft}) => {
   const navigate = useNavigate();
 
   // 햄버거 선택 여부
@@ -50,7 +50,7 @@ const NavBar = ({navRight}) => {
   return (
     <nav className="NavBar">
       <span>
-        {navRight}
+        {navLeft}
       </span>
 
       <span className="logo_area" onClick={() => {navigate("/");}}>

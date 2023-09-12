@@ -6,6 +6,7 @@ import LogoPage from './pages/LogoPage';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import MySubject from './pages/MySubject';
+import WeekGoal from './pages/WeekGoal';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/mySubject' element={<MySubject />} />
+        <Route path='/weekGoal/:id' element={<WeekGoal />} />
       </Routes>
     </BrowserRouter>
    

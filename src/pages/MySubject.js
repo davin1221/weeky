@@ -75,7 +75,7 @@ const MySubject = () =>{
 
     return <div className="MySubject">
 
-        <NavBar navRight={<BackBtn/>}/>
+        <NavBar navLeft={<BackBtn/>}/>
         
         <div className="subject_area">
             <div className="subject_top">My Subjects</div>

@@ -1,18 +1,20 @@
 import NavBar from "../components/NavBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+
 import { auth } from "../config/firebase";
 
 const Home = () => {
-  // let subject = useSelector((state)=> {return state.subject}) // store
+
+  const navigate = useNavigate();
 
   // redux ----------------------------
   const weekPlan = useSelector((state) => {
@@ -24,6 +26,7 @@ const Home = () => {
   const dayPlan = useSelector((state) => {
     return state.dayPlan;
   });
+
   let dispatch = useDispatch(); // dispatch
 
   // 해당 유저의 weekPlan, dayPaln, subject ----------------------------
@@ -64,7 +67,7 @@ const Home = () => {
   sunday.setDate(currentDate.getDate() - currentDay + 7);
   sunday.setHours(23, 59, 59, 999);
 
-  console.log(monday, sunday);
+
   // 날짜 text 지정
   const weekText = `${monday.getFullYear()}.${String(
     monday.getMonth() + 1
@@ -108,7 +111,6 @@ const Home = () => {
     (it) => mondayMs <= it.writtenDate && it.writtenDate <= sundayMs
   );
 
-  console.log("thisWeekDaily: ", thisWeekDailyPlan);
 
   // 반복할 칸의 개수
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
@@ -157,7 +159,9 @@ const Home = () => {
                   >
                     {goal.weekGoalSubject}
                   </span>
-                  <span>{goal.weekGoalContent}</span>
+                  <span onClick={()=>navigate(`/weekGoal/${it.weekId}`)}>
+                    {goal.weekGoalContent}
+                  </span>
                 </span>
               );
             })
@@ -198,8 +202,6 @@ const Home = () => {
 
 
   const GoalItem = ({date, item, sub}) => { 
-    
-    console.log("sub::", sub);
 
     return (
         <div>
@@ -226,7 +228,6 @@ const Home = () => {
                             )}
                             </span>
 
-                            {/* 서브 컬러 설정 */}
                             <span className="subject" style={{ backgroundColor: `${subColor}` }}>
                             {goal.dailyGoalSubject}
                             </span>
@@ -240,7 +241,6 @@ const Home = () => {
                 })
             )}
         </div>
-
       );
 } 
 
