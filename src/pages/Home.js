@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import { auth } from "../config/firebase";
+import Goal from "../components/Goal";
 
 const Home = () => {
 
@@ -55,18 +56,12 @@ const Home = () => {
   // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
   const monday = new Date(currentDate);
   monday.setDate(currentDate.getDate() - currentDay + 1);
-  //   if(currentDate.getDay()===1) {
-  //     monday.setDate(currentDate.getDate() - currentDay);
-  //   } else {
-  //     monday.setDate(currentDate.getDate() - currentDay + 1);
-  //   }
   monday.setHours(0, 0, 0, 0);
 
   // 일요일 구하기 (오늘 날짜 - 오늘 요일 + 7)
   const sunday = new Date(currentDate);
   sunday.setDate(currentDate.getDate() - currentDay + 7);
   sunday.setHours(23, 59, 59, 999);
-
 
   // 날짜 text 지정
   const weekText = `${monday.getFullYear()}.${String(
@@ -110,13 +105,13 @@ const Home = () => {
   const thisWeekDailyPlan = filteredDayPlan.filter(
     (it) => mondayMs <= it.writtenDate && it.writtenDate <= sundayMs
   );
-
-
+  
   // 반복할 칸의 개수
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
   return (
     <div className="Home">
+
       <NavBar />
 
       <div className="home_date_area">
@@ -133,39 +128,18 @@ const Home = () => {
         <div>This week's plan</div>
 
         <div className="week_goals">
-          {thisWeekPlan.map((it) =>
-            it.goal.map((goal) => {
-              // subject 정보에서 이름이 일치하는 정보를 찾아 색상 지정
-              let subColor = "";
-
-              filteredSubject.map((sub) => {
-                if (sub.subject === goal.weekGoalSubject) {
-                  subColor = sub.color;
-                }
-              });
-
-              return (
-                <span className="goal_item" key={goal.weekGoalId}>
-                  <span>
-                    {goal.weekGoalComplete ? (
-                      <FontAwesomeIcon icon={faSquareCheck} />
-                    ) : (
-                      <FontAwesomeIcon icon={faSquare} />
-                    )}
-                  </span>
-                  <span
-                    className="subject"
-                    style={{ backgroundColor: `${subColor}` }}
-                  >
-                    {goal.weekGoalSubject}
-                  </span>
-                  <span onClick={()=>navigate(`/weekGoal/${it.weekId}`)}>
-                    {goal.weekGoalContent}
-                  </span>
-                </span>
-              );
-            })
-          )}
+          {
+            thisWeekPlan.map((it)=>(
+                it.goal.map((goal)=>(
+                    <Goal id={it.weekId}
+                          complete={goal.weekGoalComplete}
+                          subject={goal.weekGoalSubject}
+                          content={goal.weekGoalContent}
+                          uid={it.userId}
+                          needNavigate={true}/>
+                ))
+            ))
+          }
         </div>
       </div>
 
