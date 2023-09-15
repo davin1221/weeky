@@ -10,10 +10,25 @@ import Goal from "../components/Goal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { auth } from "../config/firebase";
 
 const WeekGoal = () => {
 
+    // user id 가져오기 
+    const [uid, setUid] = useState(); // user Id
+
+    // userId가 null일때 오류 안나오게 하기
+    useEffect(() => {
+      const currentUserUid = auth?.currentUser?.uid;
+      if (currentUserUid === null) {
+        console.log("uid없음");
+      } else {
+        setUid(currentUserUid);
+      }
+    }, []);
+  
     // Plan 정보 가져오기 
     const {id} = useParams();
 
@@ -23,12 +38,13 @@ const WeekGoal = () => {
 
     const [targetPlan, setTargetPlan] = useState(weekPlan.filter((it)=> it.weekId === id));
 
-    console.log("targetPlan ", targetPlan)
+    console.log(targetPlan)
 
-    // 날짜 정보 가져오기 
+    // 날짜 정보 가져오기(targetPlan이 없으면 빈 배열 반환)
+    const goalDate = targetPlan.length > 0 ? targetPlan[0].writtenDate : []; 
+    const [targetDate, setTargetDate] = useState(goalDate);
+
     // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
-    let [targetDate, setTargetDate] = useState(targetPlan[0].writtenDate)
-
     const monday = new Date(targetDate);
     monday.setDate(new Date(targetDate).getDate() - new Date(targetDate).getDay() + 1)
     monday.setHours(0, 0, 0, 0);
@@ -47,21 +63,33 @@ const WeekGoal = () => {
       ).padStart(2, "0")}.${String(sunday.getDate()).padStart(2, "0")}`;
 
     const handleWeek = (direction) => { 
-        
-        const tempDate = new Date(targetDate);
         if(direction === 1) {
-            setTargetDate(new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() + 7))
-                   
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() + 7);
+            setTargetDate(newDate);
+            // setNewTarget();
         } else { 
-            setTargetDate(new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() - 7))
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() - 7);
+            setTargetDate(newDate);
+            // setNewTarget();
         }
-
-            
-
     }
 
-    console.log("mon: ", monday);
-            console.log( "sun: ", sunday);
+    useEffect(() => {
+        setNewTarget();
+    }, [targetDate]);
+
+    const setNewTarget = () => { 
+        const newTarget = weekPlan.filter((it)=> it.userId === uid &&
+        (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime() ))
+        setTargetPlan(newTarget);
+    }
+
+
+      
+
+
 
     return <div className="WeekGoal">
         <NavBar navLeft={<BackBtn />}/>
@@ -77,14 +105,14 @@ const WeekGoal = () => {
        </div>
 
         <div className="goal_wrap">
-            {
+            {  targetPlan.length > 0 ? 
                 targetPlan.map((it)=> it.goal.map((goal)=>(  
                     <Goal id={goal.weekGoalId}
                           complete={goal.weekGoalComplete}
                           subject={goal.weekGoalSubject}
                           content={goal.weekGoalContent}
                           uid={it.userId}/> 
-                )))
+                ))) : null
             }
             
 
