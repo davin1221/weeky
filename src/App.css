@@ -591,7 +591,8 @@ nav .burger-bar.unclicked{
 
 
 /* Week Goal ----------------------------- */
-.WeekGoal{ 
+.WeekGoal,
+.DialyGoal{ 
   margin: auto;
   max-width: 480px;
   height: 100vh;
@@ -601,9 +602,8 @@ nav .burger-bar.unclicked{
   align-items: center;
 }
 
-
-
-.WeekGoal .date_area {
+.WeekGoal .date_area,
+.DialyGoal .date_area {
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -611,13 +611,16 @@ nav .burger-bar.unclicked{
   margin-top: 20px;
 }
 
-.WeekGoal .goal_wrap { 
+.WeekGoal .goal_wrap, 
+.DialyGoal .goal_wrap { 
   width: 80%;
   margin-top: 20px;
 }
 
 .WeekGoal .date_area  > span:nth-child(1),
-.WeekGoal .date_area  > span:nth-child(3){
+.WeekGoal .date_area  > span:nth-child(3),
+.DialyGoal .date_area  > span:nth-child(1),
+.DialyGoal .date_area  > span:nth-child(3){
   border: 1.5px solid black;
   width: 20px;
   height: 20px;
@@ -630,7 +633,8 @@ nav .burger-bar.unclicked{
   background-color: #cfcfcf44;;
 }
 
-.WeekGoal .date_area  > span:nth-child(2){
+.WeekGoal .date_area  > span:nth-child(2),
+.DialyGoal .date_area  > span:nth-child(2) {
   font-size: 18px;
 }
 

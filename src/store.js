@@ -135,7 +135,26 @@ const weekPlan = createSlice({
         }
     ],
     reducers:{
-
+        handleGoalComplete(state, action) {
+            const newState = state.map((it)=> {
+                if(it.weekId === action.payload.id) {
+                    return {
+                        ...it,
+                        goal: it.goal.map((goal)=> {
+                            if(goal.weekGoalId === action.payload.goalId){
+                                return {
+                                    ...goal,
+                                    weekGoalComplete : !goal.weekGoalComplete
+                                }
+                            }
+                            return goal
+                        })
+                    }
+                }
+                return it
+            })
+            return newState;
+        }
     }
 })
 
@@ -266,11 +285,32 @@ const dayPlan = createSlice({
         },
     ],
     reducers:{
-
+       handleDailyGoalComplete(state, action) {
+        const newState = state.map((it)=> {
+            if(it.dailyId === action.payload.id) {
+                return {
+                    ...it,
+                    goal: it.goal.map((goal)=> {
+                        if(goal.dailyGoalId === action.payload.goalId){
+                            return {
+                                ...goal,
+                                dailyGoalComplete : !goal.weekGoalComplete
+                            }
+                        }
+                        return goal
+                    })
+                }
+            }
+            return it
+        })
+        return newState;
+    }
     }
 })
 
 export let { addSubject, deleteSubject } = subject.actions;
+export let { handleGoalComplete } = weekPlan.actions;
+export let { handleDailyGoalComplete } = dayPlan.actions;
 
 export default configureStore({
   reducer: {

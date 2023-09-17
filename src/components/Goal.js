@@ -1,8 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const Goal = ({ uid, id, complete, subject, content, needNavigate }) => {
+
+import { handleGoalComplete } from "../store";
+import { handleDailyGoalComplete } from "../store";
+
+const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => {
+
+    // Redux 
+    const dispatch = useDispatch();
 
 
     const mySubject = useSelector((state) => {
@@ -11,12 +18,26 @@ const Goal = ({ uid, id, complete, subject, content, needNavigate }) => {
 
     const navigate = useNavigate();
 
+    // week, daily 상세페이지 이동
     const handleNavigate = () => { 
-       if(needNavigate) return navigate(`/weekGoal/${id}`);
+       if(id.substring(0,2) === "wp" && needNavigate) {
+        navigate(`/weekGoal/${id}`)
+       } else { 
+        navigate(`/dailyGoal/${id}`)
+       }
+    }
+    
+    // goal complete 설정
+    const handleGoal = () =>{ 
+        if(id.substring(0,2) === "wp") {
+            dispatch(handleGoalComplete({id, goalId}))
+        } else { 
+            dispatch(handleDailyGoalComplete({id, goalId}))
+        }
     }
 
     return <div className="Goal" key={id}>
-        <div className="goal_complete">
+        <div className="goal_complete" onClick={handleGoal}>
             {
                 complete ? <FontAwesomeIcon icon={faSquareCheck} /> 
                          : <FontAwesomeIcon icon={faSquare} />

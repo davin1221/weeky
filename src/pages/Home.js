@@ -132,6 +132,7 @@ const Home = () => {
             thisWeekPlan.map((it)=>(
                 it.goal.map((goal)=>(
                     <Goal id={it.weekId}
+                          goalId={goal.weekGoalId}
                           complete={goal.weekGoalComplete}
                           subject={goal.weekGoalSubject}
                           content={goal.weekGoalContent}
@@ -184,31 +185,14 @@ const Home = () => {
                 // 날짜가 일치하는 경우 렌더링 
                 if (date === new Date(it.writtenDate).setHours(0, 0, 0, 0)) {
 
-                    // 주제 색상 지정
-                    let subColor = 'red';
-                    sub.map((sub) => {
-                        if (sub.subject === goal.dailyGoalSubject) {
-                        subColor = sub.color;
-                        }
-                    });
+                        return  <Goal id={it.dailyId}
+                                      goalId={goal.dailyGoalId}
+                                      complete={goal.dailyGoalComplete}
+                                      subject={goal.dailyGoalSubject}
+                                      content={goal.dailyGoalContent}
+                                      uid={it.userId}
+                                      needNavigate={true} />
 
-                    return (
-                        <span className={`goal_item ${date}`} key={it.id}>
-                            <span>
-                            {goal.dailyGoalComplete ? (
-                                <FontAwesomeIcon icon={faSquareCheck} />
-                            ) : (
-                                <FontAwesomeIcon icon={faSquare} />
-                            )}
-                            </span>
-
-                            <span className="subject" style={{ backgroundColor: `${subColor}` }}>
-                            {goal.dailyGoalSubject}
-                            </span>
-
-                            <span>{goal.dailyGoalContent}</span>
-                        </span>
-                        );
                     } else {
                         return null;
                     }

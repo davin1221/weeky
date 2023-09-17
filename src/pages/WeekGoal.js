@@ -38,11 +38,17 @@ const WeekGoal = () => {
 
     const [targetPlan, setTargetPlan] = useState(weekPlan.filter((it)=> it.weekId === id));
 
-    console.log(targetPlan)
+    // weekPlan이 바뀌면 다시 세팅하기 
+    useEffect(()=>{
+        setTargetPlan(weekPlan.filter((it)=> it.weekId === id));
+    },[weekPlan])
 
     // 날짜 정보 가져오기(targetPlan이 없으면 빈 배열 반환)
     const goalDate = targetPlan.length > 0 ? targetPlan[0].writtenDate : []; 
     const [targetDate, setTargetDate] = useState(goalDate);
+
+    // 처음 렌더링일땐 true, 날짜 변경 버튼 누르면 false(아래 useEffect와 관련 있음)
+    const [firstResult, setFirstResult] = useState(true);
 
     // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
     const monday = new Date(targetDate);
@@ -67,21 +73,23 @@ const WeekGoal = () => {
             const newDate = new Date(targetDate);
             newDate.setDate(newDate.getDate() + 7);
             setTargetDate(newDate);
-            setNewTarget();
+            setFirstResult(false);
         } else { 
             const newDate = new Date(targetDate);
             newDate.setDate(newDate.getDate() - 7);
             setTargetDate(newDate);
-            setNewTarget();
+            setFirstResult(false);
         }
     }
 
+    // firstResult가 false인 경우(날짜버튼이 눌림) targetDate가 변경되면 setNewTarget을 실행
+    // 이런식으로 firstResult에 대한 정보가 없으면 targetDate는 처음 화면이 렌더링되었을 시에도 실행되어서 결과가 뜨지 않음 
     useEffect(() => {
-        setNewTarget();
+        if(!firstResult) return setNewTarget();
     }, [targetDate]);
 
+    // 날짜 변경 시 targetPlan 새로 세팅
     const setNewTarget = () => { 
-        console.log("setNewTarget 실행...");
         const newTarget = weekPlan.filter((it)=> it.userId === uid &&
         (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime() ))
         setTargetPlan(newTarget);
@@ -104,15 +112,14 @@ const WeekGoal = () => {
         <div className="goal_wrap">
             {  targetPlan.length > 0 ? 
                 targetPlan.map((it)=> it.goal.map((goal)=>(  
-                    <Goal id={goal.weekGoalId}
+                    <Goal id={it.weekId}
+                          goalId={goal.weekGoalId}
                           complete={goal.weekGoalComplete}
                           subject={goal.weekGoalSubject}
                           content={goal.weekGoalContent}
-                          uid={it.userId}/> 
+                          uid={it.userId} />
                 ))) : null
             }
-            
-
         </div>
 
 
