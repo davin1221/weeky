@@ -61,18 +61,18 @@ const WeekGoal = () => {
                          ~ ${sunday.getFullYear()}.${String(
         sunday.getMonth() + 1
       ).padStart(2, "0")}.${String(sunday.getDate()).padStart(2, "0")}`;
-
+ 
     const handleWeek = (direction) => { 
         if(direction === 1) {
             const newDate = new Date(targetDate);
             newDate.setDate(newDate.getDate() + 7);
             setTargetDate(newDate);
-            // setNewTarget();
+            setNewTarget();
         } else { 
             const newDate = new Date(targetDate);
             newDate.setDate(newDate.getDate() - 7);
             setTargetDate(newDate);
-            // setNewTarget();
+            setNewTarget();
         }
     }
 
@@ -81,14 +81,11 @@ const WeekGoal = () => {
     }, [targetDate]);
 
     const setNewTarget = () => { 
+        console.log("setNewTarget 실행...");
         const newTarget = weekPlan.filter((it)=> it.userId === uid &&
         (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime() ))
         setTargetPlan(newTarget);
     }
-
-
-      
-
 
 
     return <div className="WeekGoal">
