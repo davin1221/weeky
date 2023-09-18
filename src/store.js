@@ -294,7 +294,7 @@ const dayPlan = createSlice({
                         if(goal.dailyGoalId === action.payload.goalId){
                             return {
                                 ...goal,
-                                dailyGoalComplete : !goal.weekGoalComplete
+                                dailyGoalComplete : !goal.dailyGoalComplete
                             }
                         }
                         return goal

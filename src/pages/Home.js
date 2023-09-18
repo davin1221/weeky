@@ -2,7 +2,7 @@ import NavBar from "../components/NavBar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 
 import { auth } from "../config/firebase";
 import Goal from "../components/Goal";
+import WriteBtn from "../components/WriteBtn";
+import HomeWriteBtn from "../components/HomeWriteBtn";
 
 const Home = () => {
 
@@ -109,6 +111,9 @@ const Home = () => {
   // 반복할 칸의 개수
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
+  // write버튼에 전달할 값 
+  const [targetId, setTargetId] = useState();
+
   return (
     <div className="Home">
 
@@ -123,9 +128,15 @@ const Home = () => {
           <FontAwesomeIcon icon={faChevronRight} />
         </span>
       </div>
+      
 
       <div className="home_week_area">
-        <div>This week's plan</div>
+        <div>
+            <span></span>
+            <span>This week's plan</span>
+            <span><FontAwesomeIcon icon={faEllipsisVertical} /></span>
+            <HomeWriteBtn top={40} right={10} />
+        </div>
 
         <div className="week_goals">
           {
@@ -160,13 +171,18 @@ const Home = () => {
               <span>{days}</span>
             </div>
 
-            <div>
-            {(() => {
+            <div className="daily_goal_wrap">
+                {(() => {
                   const thisMonday = new Date(monday);
                   let date = thisMonday.setDate(monday.getDate() + index);
                   return <GoalItem date={date} item={thisWeekDailyPlan} sub={filteredSubject}/>
                 })()}
-              
+
+                <div>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                </div>
+
+                <HomeWriteBtn right={15} />
             </div>
           </div>
         ))}
@@ -179,7 +195,7 @@ const Home = () => {
   const GoalItem = ({date, item, sub}) => { 
 
     return (
-        <div>
+        <div className="GoalItem">
             {item.map((it) =>
                 it.goal.map((goal) => {
                 // 날짜가 일치하는 경우 렌더링 

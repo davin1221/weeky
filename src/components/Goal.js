@@ -37,30 +37,30 @@ const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => 
     }
 
     return <div className="Goal" key={id}>
-        <div className="goal_complete" onClick={handleGoal}>
-            {
-                complete ? <FontAwesomeIcon icon={faSquareCheck} /> 
-                         : <FontAwesomeIcon icon={faSquare} />
-            }
-        </div>
+                <div className="goal_complete" onClick={handleGoal}>
+                    {
+                        complete ? <FontAwesomeIcon icon={faSquareCheck} /> 
+                                : <FontAwesomeIcon icon={faSquare} />
+                    }
+                </div>
 
-        <div className="goal_content"
-             onClick={handleNavigate}>
-            {(()=>{
-                let subColor = "";
+                <div className="goal_content"
+                    onClick={handleNavigate}>
+                    {(()=>{
+                        let subColor = "";
 
-                mySubject.map((sub) => {
-                if (sub.subject === subject) {
-                    subColor = sub.color;
-                }
-                });
-            
-                return (
-                <span style={{ backgroundColor: subColor }}>{subject}</span>
-                );
-            })()}
-            <span>{content}</span>
-        </div>
+                        mySubject.map((sub) => {
+                        if (sub.subject === subject) {
+                            subColor = sub.color;
+                        }
+                        });
+                    
+                        return (
+                        <span style={{ backgroundColor: subColor }}>{subject}</span>
+                        );
+                    })()}
+                    <span>{content}</span>
+                </div>
     </div>
 }
 

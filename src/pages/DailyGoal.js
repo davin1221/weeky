@@ -54,11 +54,34 @@ const DailyGoal = () => {
                      ${String(new Date(targetDate).getMonth()+ 1).padStart(2, "0") }월
                      ${String(new Date(targetDate).getDate()).padStart(2,"0")}일`
 
-    console.log(new Date(targetDate))
+    const handleDay = (direction) => { 
+        if(direction === 1) { 
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() + 1);
+            setTargetDate(newDate);
+            setFirstResult(false);
+        } else {
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() - 1);
+            setTargetDate(newDate);
+            setFirstResult(false);
+        }
+    }
 
-    const handleDay = () => { 
+    useEffect(() => {
+        if(!firstResult) return setNewTarget();
+    }, [targetDate]);
+
+    const setNewTarget = () => {
+        const startHour = targetDate.setHours(0, 0, 0, 0);
+        const endHour = targetDate.setHours(23, 59, 59, 59);
+        const newTarget = dailyPlan.filter((it)=> it.userId === uid &&
+                          (startHour <= it.writtenDate && it.writtenDate <= endHour)
+        )
+        setTargetPlan(newTarget);
 
     }
+
 
 
     return <div className="DialyGoal">
