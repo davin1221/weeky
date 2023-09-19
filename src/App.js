@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import MySubject from './pages/MySubject';
 import WeekGoal from './pages/WeekGoal';
 import DailyGoal from './pages/DailyGoal';
+import Editor from './pages/Editor';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/mySubject' element={<MySubject />} />
         <Route path='/weekGoal/:id' element={<WeekGoal />} />
         <Route path='/dailyGoal/:id' element={<DailyGoal />} />
+        <Route path='/editor/:id' element={<Editor />} />
       </Routes>
     </BrowserRouter>
    

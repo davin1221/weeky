@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Goal from "../components/Goal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import WriteBtn from "../components/WriteBtn";
 
 
 
@@ -108,7 +109,11 @@ const DailyGoal = () => {
                           uid={it.userId} />
                 ))) : null
             }
+
+            <WriteBtn />
         </div>
+
+       
     </div>
 }
 

@@ -279,6 +279,7 @@ nav .menu {
   display: flex;
   flex-direction: column;
   padding: 0px 30px;
+  z-index: 5;
 }
 
 nav .menu_area { 
@@ -622,7 +623,8 @@ nav .burger-bar.unclicked{
 }
 
 .WeekGoal .date_area,
-.DialyGoal .date_area {
+.DialyGoal .date_area,
+.Editor .date_area {
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -634,12 +636,16 @@ nav .burger-bar.unclicked{
 .DialyGoal .goal_wrap { 
   width: 80%;
   margin-top: 20px;
+
+  position: relative;
 }
 
 .WeekGoal .date_area  > span:nth-child(1),
 .WeekGoal .date_area  > span:nth-child(3),
 .DialyGoal .date_area  > span:nth-child(1),
-.DialyGoal .date_area  > span:nth-child(3){
+.DialyGoal .date_area  > span:nth-child(3),
+.Editor .date_area  > span:nth-child(1),
+.Editor .date_area  > span:nth-child(3){
   border: 1.5px solid black;
   width: 20px;
   height: 20px;
@@ -659,6 +665,7 @@ nav .burger-bar.unclicked{
 
 
 /* Goal Item ----------------------------- */
+
 .Goal {
   display: flex;
   height: 20px;
@@ -684,10 +691,73 @@ nav .burger-bar.unclicked{
   font-size: 15px;
 }
 
+/* Editor  -----------------------------*/
+.Editor{
+  margin: auto;
+  max-width: 480px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Editor .edit_area { 
+  width: 80%;
+  margin-top: 30px;
+}
+
+.Editor .edit_goal_item { 
+  margin-bottom: 10px;
+}
+
+.Editor .edit_goal_item select { 
+  border: none;
+  margin-right: 10px;
+}
+
+.Editor .edit_goal_item select:focus{
+  outline: none;
+}
+
+.Editor .edit_goal_item input { 
+  width: 200px;
+  margin-right: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+.Editor .edit_goal_item input:focus{
+  outline: none;
+}
+
+.Editor .edit_goal_item span { 
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.Editor .edit_add_btn {
+  cursor: pointer;
+  width: 49%;
+}
+
+.Editor .edit_btn_area {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.Editor .save_btn,
+.Editor .exit_btn { 
+  cursor: pointer;
+  padding: 5px 0px;
+  width: 49%;
+}
+
 
 
 /* Home Write button ----------------------------- */
-.HomeWriteBtn {
+/* .HomeWriteBtn {
   position: absolute;
   cursor: pointer;
   width: 50px;
@@ -711,16 +781,61 @@ nav .burger-bar.unclicked{
 .HomeWriteBtn > ul > li:last-child {
   color: #000000;
   padding: 5px;
-}
+} */
 
 /* Write Button ----------------------------- */
 .WriteBtn  { 
+  position: absolute;
+  right: 0px;
 
+  display: flex;
+  align-items: center;
+}
+
+.WriteBtn > div:first-child { 
+  position: absolute;
+  right: 40px;
+}
+
+.WriteBtn .sm_btn { 
+  background-color: #cfcfcf;
+  margin-right: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.WriteBtn .edit_btn {
+  position: absolute;
+  top: -40px;
+  right: -13px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.WriteBtn .delete_btn{
+  position: absolute;
+  top: -10px;
+  right: -1px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.WriteBtn .edit_btn.visible,
+.WriteBtn .delete_btn.visible{
+  opacity: 100;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 
-.WriteBtn .bigBtn { 
-  background-color: rgba(0, 0, 0, 0.5);
+.WriteBtn .write_btn { 
+  background-color: rgba(0, 0, 0);
   color:  white;
   width: 40px;
   height: 40px;
@@ -730,4 +845,10 @@ nav .burger-bar.unclicked{
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+
+  position: relative;
+
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }

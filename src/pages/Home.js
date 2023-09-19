@@ -2,7 +2,7 @@ import NavBar from "../components/NavBar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -111,8 +111,9 @@ const Home = () => {
   // 반복할 칸의 개수
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-  // write버튼에 전달할 값 
-  const [targetId, setTargetId] = useState();
+  // daily Plan write 
+  
+
 
   return (
     <div className="Home">
@@ -134,11 +135,10 @@ const Home = () => {
         <div>
             <span></span>
             <span>This week's plan</span>
-            <span><FontAwesomeIcon icon={faEllipsisVertical} /></span>
-            <HomeWriteBtn top={40} right={10} />
+            <span></span>
         </div>
 
-        <div className="week_goals">
+        <div className="week_goals" style={{cursor:"pointer"}}>
           {
             thisWeekPlan.map((it)=>(
                 it.goal.map((goal)=>(
@@ -175,14 +175,8 @@ const Home = () => {
                 {(() => {
                   const thisMonday = new Date(monday);
                   let date = thisMonday.setDate(monday.getDate() + index);
-                  return <GoalItem date={date} item={thisWeekDailyPlan} sub={filteredSubject}/>
+                  return <GoalItem date={date} item={thisWeekDailyPlan}/>
                 })()}
-
-                <div>
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
-
-                <HomeWriteBtn right={15} />
             </div>
           </div>
         ))}
@@ -192,14 +186,14 @@ const Home = () => {
 };
 
 
-  const GoalItem = ({date, item, sub}) => { 
+  const GoalItem = ({date, item}) => { 
 
     return (
         <div className="GoalItem">
             {item.map((it) =>
                 it.goal.map((goal) => {
-                // 날짜가 일치하는 경우 렌더링 
-                if (date === new Date(it.writtenDate).setHours(0, 0, 0, 0)) {
+                    // 날짜가 일치하는 경우 렌더링 
+                    if (date === new Date(it.writtenDate).setHours(0, 0, 0, 0)) {
 
                         return  <Goal id={it.dailyId}
                                       goalId={goal.dailyGoalId}
@@ -207,7 +201,8 @@ const Home = () => {
                                       subject={goal.dailyGoalSubject}
                                       content={goal.dailyGoalContent}
                                       uid={it.userId}
-                                      needNavigate={true} />
+                                      needNavigate={true} 
+                                      key={it.dailyId}/>
 
                     } else {
                         return null;

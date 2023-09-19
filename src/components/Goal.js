@@ -36,7 +36,7 @@ const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => 
         }
     }
 
-    return <div className="Goal" key={id}>
+    return <div className="Goal">
                 <div className="goal_complete" onClick={handleGoal}>
                     {
                         complete ? <FontAwesomeIcon icon={faSquareCheck} /> 

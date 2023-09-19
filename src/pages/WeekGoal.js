@@ -14,6 +14,7 @@ import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
 import { auth } from "../config/firebase";
+import WriteBtn from "../components/WriteBtn";
 
 const WeekGoal = () => {
 
@@ -121,8 +122,9 @@ const WeekGoal = () => {
                           uid={it.userId} />
                 ))) : null
             }
-        </div>
 
+            <WriteBtn/>
+        </div>
 
     </div>
 }
