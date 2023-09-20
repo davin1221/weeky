@@ -123,7 +123,7 @@ const WeekGoal = () => {
                 ))) : null
             }
 
-            <WriteBtn/>
+            <WriteBtn />
         </div>
 
     </div>

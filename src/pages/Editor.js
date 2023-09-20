@@ -42,6 +42,7 @@ const Editor = () => {
 
     // 계획 가져오기
     const [myPlan, setMyPlan] = useState([]);
+
     useEffect(() => {
         if(id.substring(0,2) === "wp"){
             setMyPlan(weekPlan.filter((it)=> it.weekId === id))
@@ -50,25 +51,69 @@ const Editor = () => {
         }
       }, []);
 
-      console.log("mypaln:", myPlan)
- 
+     // 날짜(weekly)
+     const [targetDate, setTargetDate] = useState();
+     useEffect(()=>{
+        setTargetDate(myPlan.length > 0 ? myPlan[0].writtenDate : null)
+     },[myPlan])
+
+     // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
+    const monday = new Date(targetDate);
+    monday.setDate(new Date(targetDate).getDate() - new Date(targetDate).getDay() + 1)
+    monday.setHours(0, 0, 0, 0);
+
+    // 일요일 구하기 (오늘 날짜 - 오늘 요일 + 7)
+    const sunday = new Date(targetDate);
+    sunday.setDate(new Date(targetDate).getDate() - new Date(targetDate).getDay() + 7)
+    sunday.setHours(23, 59, 59, 999);
+
+    // 날짜 text 
+    const weekText = `${monday.getFullYear()}.${String(
+        monday.getMonth() + 1
+      ).padStart(2, "0")}.${String(monday.getDate()).padStart(2, "0")}
+                         ~ ${sunday.getFullYear()}.${String(
+        sunday.getMonth() + 1
+      ).padStart(2, "0")}.${String(sunday.getDate()).padStart(2, "0")}`;
+
+    const dayText = `${new Date(targetDate).getFullYear()}년 
+                    ${String(new Date(targetDate).getMonth()+ 1).padStart(2, "0") }월
+                    ${String(new Date(targetDate).getDate()).padStart(2,"0")}일`
+
+    // 함수 
 
     const handleDay = (direction) => { 
 
     }
 
+    const goalDelete = (id) => { 
+        console.log(id)
+        if(id.substring(0,2) === "wg") {
+            const newPlan = myPlan.map((it)=>({
+                ...it,
+                goal: it.goal.filter((goal)=> goal.weekGoalId != id)
+            }))
+            setMyPlan(newPlan)
+        } else { 
+            const newPlan = myPlan.map((it)=>({
+                ...it,
+                goal: it.goal.filter((goal)=> goal.dailyGoalId != id)
+            }))
+            setMyPlan(newPlan)
+        }
+    }
+
     return <div className="Editor">
         <NavBar navLeft={<BackBtn />}/>
 
-        <div className="date_area">
+        <div className="date_area" style={{fontSize:"18px"}}>
             <span onClick={() => handleDay(-1)}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </span>
             {
                 id.substring(0,2) === "wp" ? 
-                <div>2023.09.04 ~ 2023.09.10</div> 
+                <div>{weekText}</div> 
                 :
-                <div>2023년 09월 04일 계획</div>
+                <div>&nbsp;&nbsp;&nbsp;{dayText}&nbsp;&nbsp;&nbsp;</div>
             }
             <span onClick={() => handleDay(1)}>
                 <FontAwesomeIcon icon={faChevronRight} />
@@ -90,7 +135,7 @@ const Editor = () => {
                             }
                             </select>
                             <input placeholder="What is your plan?" value={`${goal.weekGoalContent || goal.dailyGoalContent}`}/>
-                            <span>&times;</span>
+                            <span onClick={()=> goalDelete(goal.weekGoalId || goal.dailyGoalId)}>&times;</span>
                         </div>
                   )))) : null
             }
