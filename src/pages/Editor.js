@@ -80,9 +80,53 @@ const Editor = () => {
                     ${String(new Date(targetDate).getDate()).padStart(2,"0")}일`
 
     // 함수 
+    const [firstResult, setFirstResult] = useState(true);
 
     const handleDay = (direction) => { 
+        if(id.substring(0,2) === "wp" && direction === 1) {
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() + 7);
+            setTargetDate(newDate);
+            setFirstResult(false);
+        } else if(id.substring(0,2) === "wp" && direction === -1){ 
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() - 7);
+            setTargetDate(newDate);
+            setFirstResult(false);
+        } else if(id.substring(0,2) === "dp" && direction === 1) {
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() + 1);
+            setTargetDate(newDate);
+            setFirstResult(false);
+        } else {
+            const newDate = new Date(targetDate);
+            newDate.setDate(newDate.getDate() - 1);
+            setTargetDate(newDate); 
+            setFirstResult(false);
+        }
+    }
 
+    useEffect(() => {
+        if(!firstResult) return setNewPlan();
+    }, [targetDate]);
+
+    // 날짜 변경 시 targetPlan 새로 세팅
+    const setNewPlan = () => { 
+        console.log(id)
+        if(id.substring(0,2) === "wp") {
+            console.log(monday.getTime())
+            const newPlan = myPlan.filter((it)=> it.userId === uid &&
+            (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime()))
+            // const newPlan = myPlan.filter((it)=> it.userId === uid &&
+            // (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime() ))
+            // setMyPlan(newPlan);
+
+            console.log("newPlan", newPlan)
+            
+            
+        } else { 
+            console.log("오ㅔ?")
+        }
     }
 
     const goalDelete = (id) => { 
