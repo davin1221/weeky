@@ -3,11 +3,9 @@ import  { faPen, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icon
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const WriteBtn = () => {
+const WriteBtn = ({id}) => {
 
     const [isOpen, setIsOpen] = useState(false);
-
-    const {id} = useParams();
 
     const navigate = useNavigate();
 

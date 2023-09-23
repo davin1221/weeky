@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { handleGoalComplete } from "../store";
 import { handleDailyGoalComplete } from "../store";
 
-const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => {
+const Goal = ({ uid, id, writtenDate, goalId, complete, subject, content, needNavigate }) => {
 
     // Redux 
     const dispatch = useDispatch();
@@ -20,11 +20,11 @@ const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => 
 
     // week, daily 상세페이지 이동
     const handleNavigate = () => { 
-       if(id.substring(0,2) === "wp" && needNavigate) {
-        navigate(`/weekGoal/${id}`)
-       } else { 
-        navigate(`/dailyGoal/${id}`)
-       }
+    //    if(id.substring(0,2) === "wp" && needNavigate) {
+    //     navigate(`/weekGoal/${writtenDate}`)
+    //    } else { 
+    //     navigate(`/dailyGoal/${writtenDate}`)
+    //    }
     }
     
     // goal complete 설정
@@ -36,7 +36,7 @@ const Goal = ({ uid, id, goalId, complete, subject, content, needNavigate }) => 
         }
     }
 
-    return <div className="Goal">
+    return <div className="Goal" onClick={(e)=> e.stopPropagation()}>
                 <div className="goal_complete" onClick={handleGoal}>
                     {
                         complete ? <FontAwesomeIcon icon={faSquareCheck} /> 

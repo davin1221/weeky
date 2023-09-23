@@ -55,7 +55,7 @@ const Editor = () => {
      const [targetDate, setTargetDate] = useState();
      useEffect(()=>{
         setTargetDate(myPlan.length > 0 ? myPlan[0].writtenDate : null)
-     },[myPlan])
+     },[])
 
      // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
     const monday = new Date(targetDate);
@@ -125,7 +125,13 @@ const Editor = () => {
             
             
         } else { 
-            console.log("오ㅔ?")
+            const startHour = targetDate.setHours(0, 0, 0, 0);
+            const endHour = targetDate.setHours(23, 59, 59, 59);
+            const newTarget = dayPlan.filter((it)=> it.userId === uid &&
+                              (startHour <= it.writtenDate && it.writtenDate <= endHour)
+            )
+
+            console.log(newTarget)
         }
     }
 

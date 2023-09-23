@@ -112,6 +112,11 @@ const Home = () => {
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
   // daily Plan write 
+
+  // 디테일로 이동 
+  function handleNaviagte(e) {
+    navigate(`/goalDetail/${132144}`)
+  }
   
 
 
@@ -138,17 +143,17 @@ const Home = () => {
             <span></span>
         </div>
 
-        <div className="week_goals" style={{cursor:"pointer"}}>
+        <div className="week_goals" style={{cursor:"pointer"}} onClick={(e)=>handleNaviagte(e)}>
           {
             thisWeekPlan.map((it)=>(
                 it.goal.map((goal)=>(
                     <Goal id={it.weekId}
+                          writtenDate={it.writtenDate}
                           goalId={goal.weekGoalId}
                           complete={goal.weekGoalComplete}
                           subject={goal.weekGoalSubject}
                           content={goal.weekGoalContent}
-                          uid={it.userId}
-                          needNavigate={true}/>
+                          uid={it.userId}/>
                 ))
             ))
           }
@@ -196,6 +201,7 @@ const Home = () => {
                     if (date === new Date(it.writtenDate).setHours(0, 0, 0, 0)) {
 
                         return  <Goal id={it.dailyId}
+                                      writtenDate={it.writtenDate}
                                       goalId={goal.dailyGoalId}
                                       complete={goal.dailyGoalComplete}
                                       subject={goal.dailyGoalSubject}
