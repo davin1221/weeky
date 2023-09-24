@@ -17,21 +17,14 @@ const Goal = ({ uid, id, writtenDate, goalId, complete, subject, content, needNa
     })
 
     const navigate = useNavigate();
-
-    // week, daily 상세페이지 이동
-    const handleNavigate = () => { 
-    //    if(id.substring(0,2) === "wp" && needNavigate) {
-    //     navigate(`/weekGoal/${writtenDate}`)
-    //    } else { 
-    //     navigate(`/dailyGoal/${writtenDate}`)
-    //    }
-    }
     
     // goal complete 설정
     const handleGoal = () =>{ 
+        console.log(id)
         if(id.substring(0,2) === "wp") {
             dispatch(handleGoalComplete({id, goalId}))
         } else { 
+            console.log("id:", id, "goalId", goalId)
             dispatch(handleDailyGoalComplete({id, goalId}))
         }
     }
@@ -44,8 +37,7 @@ const Goal = ({ uid, id, writtenDate, goalId, complete, subject, content, needNa
                     }
                 </div>
 
-                <div className="goal_content"
-                    onClick={handleNavigate}>
+                <div className="goal_content">
                     {(()=>{
                         let subColor = "";
 

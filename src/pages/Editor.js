@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 
 const Editor = () => {
 
-    // id 가져오기 
-    const {id} = useParams();
+    const {writtenDate} = useParams();
+
+    const planCategory = writtenDate.slice(0,1);
+    const [date, setDate] = useState(writtenDate.slice(2));
 
      // user id 가져오기 
      const [uid, setUid] = useState(); // user Id
@@ -40,115 +42,81 @@ const Editor = () => {
     // 주제 가져오기 
     const mySubject = subject.filter((it)=> it.userId === uid);
 
+     // week 날짜 
+     const [monday, setMonday] = useState(parseInt(date));
+     const [sunday, setSunday] = useState( new Date(parseInt(date)).setDate( new Date(parseInt(date)).getDate() + 6 ) )
+ 
+     // daily 날짜 
+     const [daliyDate, setDailyDate] = useState(new Date(parseInt(date)));
+     const [startDailyHour, setStartDailyHour] = useState(daliyDate.setHours(0,0,0,0));
+     const [endDailyHour, setEndDailyHour] = useState(daliyDate.setHours(23,59,59,59));
+     
+     const dateText = planCategory === "w" ? `${new Date(monday).getFullYear()}.${String(new Date(monday).getMonth()+1).padStart(2, "0")}.${String(new Date(monday).getDate()).padStart(2,"0")} ~ 
+                       ${new Date(sunday).getFullYear()}.${String(new Date(sunday).getMonth()+1).padStart(2, "0")}.${String(new Date(sunday).getDate()).padStart(2,"0")}` 
+                       : `${daliyDate.getFullYear()}. ${String(daliyDate.getMonth()+1).padStart(2,"0")}. ${String(daliyDate.getDate()).padStart(2,"0")}`;
+ 
     // 계획 가져오기
-    const [myPlan, setMyPlan] = useState([]);
+    const [targetPlan, setTargetPlan] = useState([]);
 
-    useEffect(() => {
-        if(id.substring(0,2) === "wp"){
-            setMyPlan(weekPlan.filter((it)=> it.weekId === id))
-        } else { 
-            setMyPlan(dayPlan.filter((it)=> it.dailyId === id))
-        }
-      }, []);
+    useEffect(()=>{
+        const newTarget = planCategory === "w" ? weekPlan.filter( (it)=> it.userId === uid && (monday <= it.writtenDate && it.writtenDate <= sunday)) 
+                                               : dayPlan.filter( (it)=> it.userId === uid && (startDailyHour <= it.writtenDate && it.writtenDate <= endDailyHour));
+        setTargetPlan(newTarget);
+    },[uid, monday, daliyDate, weekPlan, dayPlan])
 
-     // 날짜(weekly)
-     const [targetDate, setTargetDate] = useState();
-     useEffect(()=>{
-        setTargetDate(myPlan.length > 0 ? myPlan[0].writtenDate : null)
-     },[])
-
-     // 월요일 구하기 (오늘 날짜 - 오늘 요일 + 1)
-    const monday = new Date(targetDate);
-    monday.setDate(new Date(targetDate).getDate() - new Date(targetDate).getDay() + 1)
-    monday.setHours(0, 0, 0, 0);
-
-    // 일요일 구하기 (오늘 날짜 - 오늘 요일 + 7)
-    const sunday = new Date(targetDate);
-    sunday.setDate(new Date(targetDate).getDate() - new Date(targetDate).getDay() + 7)
-    sunday.setHours(23, 59, 59, 999);
-
-    // 날짜 text 
-    const weekText = `${monday.getFullYear()}.${String(
-        monday.getMonth() + 1
-      ).padStart(2, "0")}.${String(monday.getDate()).padStart(2, "0")}
-                         ~ ${sunday.getFullYear()}.${String(
-        sunday.getMonth() + 1
-      ).padStart(2, "0")}.${String(sunday.getDate()).padStart(2, "0")}`;
-
-    const dayText = `${new Date(targetDate).getFullYear()}년 
-                    ${String(new Date(targetDate).getMonth()+ 1).padStart(2, "0") }월
-                    ${String(new Date(targetDate).getDate()).padStart(2,"0")}일`
-
-    // 함수 
     const [firstResult, setFirstResult] = useState(true);
 
-    const handleDay = (direction) => { 
-        if(id.substring(0,2) === "wp" && direction === 1) {
-            const newDate = new Date(targetDate);
-            newDate.setDate(newDate.getDate() + 7);
-            setTargetDate(newDate);
-            setFirstResult(false);
-        } else if(id.substring(0,2) === "wp" && direction === -1){ 
-            const newDate = new Date(targetDate);
-            newDate.setDate(newDate.getDate() - 7);
-            setTargetDate(newDate);
-            setFirstResult(false);
-        } else if(id.substring(0,2) === "dp" && direction === 1) {
-            const newDate = new Date(targetDate);
-            newDate.setDate(newDate.getDate() + 1);
-            setTargetDate(newDate);
-            setFirstResult(false);
-        } else {
-            const newDate = new Date(targetDate);
-            newDate.setDate(newDate.getDate() - 1);
-            setTargetDate(newDate); 
-            setFirstResult(false);
-        }
-    }
-
-    useEffect(() => {
-        if(!firstResult) return setNewPlan();
-    }, [targetDate]);
-
-    // 날짜 변경 시 targetPlan 새로 세팅
-    const setNewPlan = () => { 
-        console.log(id)
-        if(id.substring(0,2) === "wp") {
-            console.log(monday.getTime())
-            const newPlan = myPlan.filter((it)=> it.userId === uid &&
-            (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime()))
-            // const newPlan = myPlan.filter((it)=> it.userId === uid &&
-            // (monday.getTime() <= it.writtenDate && it.writtenDate <= sunday.getTime() ))
-            // setMyPlan(newPlan);
-
-            console.log("newPlan", newPlan)
-            
-            
+    const handleDate = (direction) => { 
+        if(planCategory === "w") {
+            if(direction === -1) {
+                const newMonday = new Date(monday).setDate(new Date(monday).getDate() - 7)
+                setMonday(newMonday)
+    
+                const newSunday = new Date(monday).setDate(new Date(monday).getDate() - 1)
+                setSunday(newSunday)
+                
+            } else { 
+                const newMonday = new Date(monday).setDate(new Date(monday).getDate() + 7)
+                setMonday(newMonday)
+    
+                const newSunday = new Date(monday).setDate(new Date(monday).getDate() + 13)
+                setSunday(newSunday)
+            }
         } else { 
-            const startHour = targetDate.setHours(0, 0, 0, 0);
-            const endHour = targetDate.setHours(23, 59, 59, 59);
-            const newTarget = dayPlan.filter((it)=> it.userId === uid &&
-                              (startHour <= it.writtenDate && it.writtenDate <= endHour)
-            )
+            if(direction === -1){
+                const newDailydate = new Date( daliyDate.setDate(daliyDate.getDate() - 1) )
+                setDailyDate(newDailydate)
+                const newStartHour = new Date( newDailydate.setHours(0,0,0,0))
+                setStartDailyHour(newStartHour)
+                const newEndHour = new Date( newDailydate.setHours(23,59,59,59))
+                setEndDailyHour(newEndHour)
 
-            console.log(newTarget)
+            } else { 
+                const newDailydate = new Date( daliyDate.setDate(daliyDate.getDate() + 1) )
+                setDailyDate(newDailydate)
+                const newStartHour = new Date( newDailydate.setHours(0,0,0,0))
+                setStartDailyHour(newStartHour)
+                const newEndHour = new Date( newDailydate.setHours(23,59,59,59))
+                setEndDailyHour(newEndHour)
+            }
         }
     }
+    
 
     const goalDelete = (id) => { 
         console.log(id)
         if(id.substring(0,2) === "wg") {
-            const newPlan = myPlan.map((it)=>({
+            const newPlan = targetPlan.map((it)=>({
                 ...it,
                 goal: it.goal.filter((goal)=> goal.weekGoalId != id)
             }))
-            setMyPlan(newPlan)
+            setTargetPlan(newPlan)
         } else { 
-            const newPlan = myPlan.map((it)=>({
+            const newPlan = targetPlan.map((it)=>({
                 ...it,
                 goal: it.goal.filter((goal)=> goal.dailyGoalId != id)
             }))
-            setMyPlan(newPlan)
+            setTargetPlan(newPlan)
         }
     }
 
@@ -156,16 +124,11 @@ const Editor = () => {
         <NavBar navLeft={<BackBtn />}/>
 
         <div className="date_area" style={{fontSize:"18px"}}>
-            <span onClick={() => handleDay(-1)}>
+            <span onClick={() => handleDate(-1)}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </span>
-            {
-                id.substring(0,2) === "wp" ? 
-                <div>{weekText}</div> 
-                :
-                <div>&nbsp;&nbsp;&nbsp;{dayText}&nbsp;&nbsp;&nbsp;</div>
-            }
-            <span onClick={() => handleDay(1)}>
+            <div>{dateText}</div>
+            <span onClick={() => handleDate(1)}>
                 <FontAwesomeIcon icon={faChevronRight} />
             </span>
         </div>
@@ -174,8 +137,8 @@ const Editor = () => {
         <div className="edit_area">
 
             {
-                myPlan.length > 0 ?
-                    myPlan.map((it)=>(it.goal.map((goal)=>(
+                targetPlan.length > 0 ?
+                    targetPlan.map((it)=>(it.goal.map((goal)=>(
                         <div className="edit_goal_item">
                             <select>
                             {

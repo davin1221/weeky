@@ -412,6 +412,10 @@ nav .burger-bar.unclicked{
   scrollbar-width: none; /* Firefox */
 }
 
+.Home .week_goals:hover { 
+  background-color: #95959544;
+}
+
 .Home .week_goals::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
 }
@@ -458,6 +462,11 @@ nav .burger-bar.unclicked{
   border-bottom: 1.5px solid black;
 }
 
+.Home .daily_goal_wrap:hover{
+  background-color: #95959544;
+}
+
+
 .Home .home_daily_item > div:first-child{
   display: flex;
   flex-direction: column;
@@ -487,9 +496,11 @@ nav .burger-bar.unclicked{
   background-color: #cfcfcf44;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
+  cursor: pointer;
   position: relative;
 }
+
+
 
 .Home .daily_goal_wrap::-webkit-scrollbar {
   display: none;

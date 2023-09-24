@@ -3,7 +3,7 @@ import  { faPen, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icon
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const WriteBtn = ({id}) => {
+const WriteBtn = ({writtenDate}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -16,9 +16,9 @@ const WriteBtn = ({id}) => {
     return <div className="WriteBtn">
         
         <div>
-            <div className={`edit_btn sm_btn ${isOpen ? 'visible' : 'hidden'}`}
-                 onClick={()=>navigate(`/editor/${id}`)}>
-                <FontAwesomeIcon icon={faPenToSquare} />
+            <div className={`edit_btn sm_btn ${isOpen ? 'visible' : 'hidden'}`} 
+                 onClick={()=>navigate(`/editor/${writtenDate}`)}>
+                <FontAwesomeIcon icon={faPenToSquare} writtenDate={writtenDate}/>
             </div>
             <div className={`delete_btn sm_btn ${isOpen ? 'visible' : 'hidden'}`}>
                 <FontAwesomeIcon icon={faTrash} />
