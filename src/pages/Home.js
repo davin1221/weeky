@@ -73,6 +73,7 @@ const Home = () => {
     sunday.getMonth() + 1
   ).padStart(2, "0")}.${String(sunday.getDate()).padStart(2, "0")}`;
 
+
   // ** 버튼 누르면 주(week) 이동 **
   const handleWeek = (direction) => {
     // direction -1 왼쪽 / 1 오른쪽
@@ -111,12 +112,11 @@ const Home = () => {
   // 반복할 칸의 개수
   const sevenDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-  // daily Plan write 
-
   // 디테일로 이동 
-  function handleNaviagte(e) {
-    navigate(`/goalDetail/${132144}`)
+  const handleNaviagte = (e) => {
+    navigate(`/weekDetail/w_${monday.getTime()}`)
   }
+
   
 
 
@@ -143,7 +143,7 @@ const Home = () => {
             <span></span>
         </div>
 
-        <div className="week_goals" style={{cursor:"pointer"}} onClick={(e)=>handleNaviagte(e)}>
+        <div className="week_goals" style={{cursor:"pointer"}} onClick={(e)=>handleNaviagte(monday)}>
           {
             thisWeekPlan.map((it)=>(
                 it.goal.map((goal)=>(

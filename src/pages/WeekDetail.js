@@ -17,14 +17,37 @@ import { auth } from "../config/firebase";
 import WriteBtn from "../components/WriteBtn";
 
 
-const GoalDetail = () => { 
+const WeekDetail = () => { 
 
-    const handleWeek = () => { 
+    const {params} = useParams();
+    const writtenDate = params.slice(2);
+    const planCategory = params.slice(0,1);
 
+    const [monday, setMonday] = useState(parseInt(writtenDate));
+    const [sunday, setSunday] = useState( new Date(parseInt(writtenDate)).setDate( new Date(parseInt(writtenDate)).getDate() + 6 ) )
+
+
+    const dateText = `${new Date(monday).getFullYear()}.${String(new Date(monday).getMonth()+1).padStart(2, "0")}.${String(new Date(monday).getDate()).padStart(2,"0")} ~ 
+                      ${new Date(sunday).getFullYear()}.${String(new Date(sunday).getMonth()+1).padStart(2, "0")}.${String(new Date(sunday).getDate()).padStart(2,"0")}`
+
+    const handleWeek = (direction) => { 
+        if(direction === -1) {
+            const newMonday = new Date(monday).setDate(new Date(monday).getDate() - 7)
+            setMonday(newMonday)
+
+            const newSunday = new Date(monday).setDate(new Date(monday).getDate() - 1)
+            setSunday(newSunday)
+            
+        } else { 
+            const newMonday = new Date(monday).setDate(new Date(monday).getDate() + 7)
+            setMonday(newMonday)
+
+            const newSunday = new Date(monday).setDate(new Date(monday).getDate() + 13)
+            setSunday(newSunday)
+        }
     }
 
-    const [weekText, setWeekText] = useState();
-    
+
     return<div className="GoalDetail">
     <NavBar navLeft={<BackBtn />}/>
 
@@ -32,7 +55,7 @@ const GoalDetail = () => {
         <span onClick={() => handleWeek(-1)}>
             <FontAwesomeIcon icon={faChevronLeft} />
         </span>
-        <span>{weekText}</span>
+        <span>{dateText}</span>
         <span onClick={() => handleWeek(1)}>
             <FontAwesomeIcon icon={faChevronRight} />
         </span>
@@ -56,4 +79,4 @@ const GoalDetail = () => {
 </div>
 }
 
-export default GoalDetail;
+export default WeekDetail;

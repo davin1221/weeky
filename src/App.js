@@ -9,7 +9,8 @@ import MySubject from './pages/MySubject';
 import WeekGoal from './pages/WeekGoal';
 import DailyGoal from './pages/DailyGoal';
 import Editor from './pages/Editor';
-import GoalDetail from './pages/GoalDetail';
+import GoalDetail from './pages/WeekDetail';
+import WeekDetail from './pages/WeekDetail';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/mySubject' element={<MySubject />} />
-        <Route path='/goalDetail/:writtenDate' element={<GoalDetail />} />
+        <Route path='/weekDetail/:params' element={<WeekDetail />} />
         <Route path='/weekGoal/:writtenDate' element={<WeekGoal />} />
         <Route path='/dailyGoal/:writtenDate' element={<DailyGoal />} />
         <Route path='/editor/:writtenDate' element={<Editor />} />
