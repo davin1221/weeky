@@ -9,15 +9,26 @@ const WriteBtn = ({writtenDate}) => {
 
     const navigate = useNavigate();
 
+    const {params} = useParams();
+    const planCategory = params.slice(0,1);
+
     const openBtns = () => { 
         setIsOpen(!isOpen)
+    }
+    
+    const navigateEditor = () => { 
+        if(planCategory === "w") { 
+            navigate(`/editor/${planCategory}_${writtenDate}`)
+        } else { 
+            navigate(`/editor/${planCategory}_${writtenDate.getTime()}`)
+        }
     }
 
     return <div className="WriteBtn">
         
         <div>
             <div className={`edit_btn sm_btn ${isOpen ? 'visible' : 'hidden'}`} 
-                 onClick={()=>navigate(`/editor/${writtenDate}`)}>
+                 onClick={navigateEditor}>
                 <FontAwesomeIcon icon={faPenToSquare} writtenDate={writtenDate}/>
             </div>
             <div className={`delete_btn sm_btn ${isOpen ? 'visible' : 'hidden'}`}>

@@ -65,6 +65,7 @@ const WeekDetail = () => {
     }, []);
 
     useEffect(()=> { 
+
         const newTarget = planCategory === "w" ? weekPlan.filter( (it)=> it.userId === uid && (monday <= it.writtenDate && it.writtenDate <= sunday)) 
                                                : dayPlan.filter( (it)=> it.userId === uid && (startDailyHour <= it.writtenDate && it.writtenDate <= endDailyHour));
         setTargetPlan(newTarget);
@@ -138,7 +139,11 @@ const WeekDetail = () => {
             ))) : null
         }
 
-        <WriteBtn writtenDate={params}/>
+        {
+            planCategory === "w" ? <WriteBtn writtenDate={monday}/> 
+                                 :  <WriteBtn writtenDate={daliyDate}/>
+        }
+        
     </div>
 
 </div>

@@ -13,7 +13,7 @@ const Editor = () => {
 
     const planCategory = writtenDate.slice(0,1);
     const [date, setDate] = useState(writtenDate.slice(2));
-
+    
      // user id 가져오기 
      const [uid, setUid] = useState(); // user Id
 
@@ -73,7 +73,7 @@ const Editor = () => {
                 setMonday(newMonday)
     
                 const newSunday = new Date(monday).setDate(new Date(monday).getDate() - 1)
-                setSunday(newSunday)
+                setSunday(newSunday) 
                 
             } else { 
                 const newMonday = new Date(monday).setDate(new Date(monday).getDate() + 7)
