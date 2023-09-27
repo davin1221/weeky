@@ -7,8 +7,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import MySubject from './pages/MySubject';
 import Editor from './pages/Editor';
-import GoalDetail from './pages/WeekDetail';
-import WeekDetail from './pages/WeekDetail';
+import GoalDetail from './pages/GoalDetail';
 
 function App() {
 
@@ -21,7 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/mySubject' element={<MySubject />} />
-        <Route path='/weekDetail/:params' element={<WeekDetail />} />
+        <Route path='/goalDetail/:params' element={<GoalDetail />} />
         <Route path='/editor/:writtenDate' element={<Editor />} />
       </Routes>
     </BrowserRouter>

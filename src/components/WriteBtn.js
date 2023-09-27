@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import  { faPen, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteWeekGoals, deletedailyGoals } from "../store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../config/firebase";
 
 const WriteBtn = ({writtenDate, id, empty}) => {
 
@@ -16,16 +17,45 @@ const WriteBtn = ({writtenDate, id, empty}) => {
     const {params} = useParams();
     const planCategory = params.slice(0,1);
 
+    // subject 검사(하나라도 만들지 않으면 계획 작성 불가)
+    const [uid, setUid] = useState(); // user Id
+
+    // userId가 null일때 오류 안나오게 하기
+    useEffect(() => {
+        const currentUserUid = auth?.currentUser?.uid;
+        if (currentUserUid === null) {
+        console.log("uid없음");
+        } else {
+        setUid(currentUserUid);
+        }
+    }, []);
+
+    const subject = useSelector((state) => {
+        return state.subject;
+    });
+
+    const mySubject = subject.filter((it) => it.userId === uid);
+
+    console.log(mySubject)
+
     const openBtns = () => { 
         setIsOpen(!isOpen)
     }
     
     const navigateEditor = () => { 
-        if(planCategory === "w") { 
-            navigate(`/editor/${planCategory}_${writtenDate}`)
-        } else { 
-            navigate(`/editor/${planCategory}_${writtenDate.getTime()}`)
+        
+        if(mySubject.length === 0) { 
+            alert("subject를 하나 이상 만들어주세요");
+            navigate(`/mySubject`);
+            return;
+        } else {
+            if(planCategory === "w") { 
+                navigate(`/editor/${planCategory}_${writtenDate}`)
+            } else { 
+                navigate(`/editor/${planCategory}_${writtenDate.getTime()}`)
+            }
         }
+        
     }
 
     // 계획 전체 삭제 

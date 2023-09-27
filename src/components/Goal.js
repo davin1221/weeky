@@ -11,7 +11,6 @@ const Goal = ({ uid, id, writtenDate, goalId, complete, subject, content, needNa
     // Redux 
     const dispatch = useDispatch();
 
-
     const mySubject = useSelector((state) => {
         return state.subject.filter((it) => it.userId === uid);
     })

@@ -43,7 +43,6 @@ const Home = () => {
   // 필터링
   const filteredWeekPlan = weekPlan.filter((it) => it.userId === uid);
   const filteredDayPlan = dayPlan.filter((it) => it.userId === uid);
-  const filteredSubject = subject.filter((it) => it.userId === uid);
 
   //  주(week) 설정 ----------------------------
   const [currentDate, setCurrentDate] = useState(new Date()); // 오늘 날짜 Thu Sep 07 2023 23:03:15 GMT+0900 (한국 표준시)
@@ -109,11 +108,11 @@ const Home = () => {
 
   // 디테일로 이동 
   const weekNaviagte = () => {
-    navigate(`/weekDetail/w_${monday.getTime()}`)
+    navigate(`/goalDetail/w_${monday.getTime()}`)
   }
 
   const dailyNavigate = (date) => { 
-    navigate(`/weekDetail/d_${date}`)
+    navigate(`/goalDetail/d_${date}`)
   }
 
 
