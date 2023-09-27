@@ -271,7 +271,7 @@ const Editor = () => {
                     navigate('/')
                 } else {
                     planCategory === "w" ? dispatch(addWeekGoal(targetPlan)) : dispatch(addDailyGoal(targetPlan))
-                    // navigate('/')  
+                    navigate('/')  
                 }
             }
         }

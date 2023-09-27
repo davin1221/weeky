@@ -140,8 +140,14 @@ const WeekDetail = () => {
         }
 
         {
-            planCategory === "w" ? <WriteBtn writtenDate={monday}/> 
-                                 :  <WriteBtn writtenDate={daliyDate}/>
+            targetPlan.length > 0?
+                targetPlan.map((it)=> (
+                    planCategory === "w" ? <WriteBtn writtenDate={monday} id={it.weekId} empty={false}/> 
+                    :  <WriteBtn writtenDate={daliyDate} id={it.dailyId} empty={false}/>
+                ))
+                :
+                planCategory === "w" ? <WriteBtn writtenDate={monday} empty={true}/> 
+                :  <WriteBtn writtenDate={daliyDate} empty={true}/>
         }
         
     </div>
