@@ -154,6 +154,27 @@ const weekPlan = createSlice({
                 return it
             })
             return newState;
+        },
+        editWeekGoal(state, action) {
+            const newState = state.map((it)=>{
+                if(it.weekId === action.payload[0].weekId){
+                    return {
+                        ...it,
+                        ...action.payload[0]
+                    }
+                } 
+                return it;
+            }) 
+            return newState;
+        },
+        addWeekGoal(state, action) {
+            const newState = state.some((it)=>{
+                if(it.weekId != action.payload[0].weekId){
+                    state.push(action.payload[0])
+                }
+                return it;
+            })
+            return newState;
         }
     }
 })
@@ -304,13 +325,35 @@ const dayPlan = createSlice({
             return it
         })
         return newState;
+    },
+    editDailyGoal(state, action) {
+        const newState = state.map((it)=>{
+            if(it.dailyId === action.payload[0].dailyId){
+                return {
+                    ...it,
+                    ...action.payload[0]
+                }
+            } 
+            return it;
+        }) 
+        return newState;
+    },
+    addDailyGoal(state,action){
+        const newState = state.some((it)=>{
+            if(it.dailyId != action.payload[0].dailyId){
+                state.push(action.payload[0])
+                return true
+            }
+            // return it;
+        })
+        return newState;
     }
     }
 })
 
 export let { addSubject, deleteSubject } = subject.actions;
-export let { handleGoalComplete } = weekPlan.actions;
-export let { handleDailyGoalComplete } = dayPlan.actions;
+export let { handleGoalComplete, editWeekGoal, addWeekGoal } = weekPlan.actions;
+export let { handleDailyGoalComplete, editDailyGoal, addDailyGoal } = dayPlan.actions;
 
 export default configureStore({
   reducer: {

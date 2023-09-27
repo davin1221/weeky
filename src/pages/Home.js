@@ -2,7 +2,6 @@ import NavBar from "../components/NavBar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisVertical, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +11,6 @@ import { useDispatch } from "react-redux";
 
 import { auth } from "../config/firebase";
 import Goal from "../components/Goal";
-import WriteBtn from "../components/WriteBtn";
-import HomeWriteBtn from "../components/HomeWriteBtn";
 
 const Home = () => {
 
@@ -29,8 +26,6 @@ const Home = () => {
   const dayPlan = useSelector((state) => {
     return state.dayPlan;
   });
-
-  let dispatch = useDispatch(); // dispatch
 
   // 해당 유저의 weekPlan, dayPaln, subject ----------------------------
   const [uid, setUid] = useState(); // user Id
