@@ -268,10 +268,10 @@ const Editor = () => {
             if(window.confirm("저장하시겠습니까?")){
                 if(isEmptyPlan === false) {
                     planCategory === "w" ? dispatch(editWeekGoal(targetPlan)) : dispatch(editDailyGoal(targetPlan))
-                    navigate('/')
+                    navigate('/home')
                 } else {
                     planCategory === "w" ? dispatch(addWeekGoal(targetPlan)) : dispatch(addDailyGoal(targetPlan))
-                    navigate('/')  
+                    navigate('/home')  
                 }
             }
         }

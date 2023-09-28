@@ -36,8 +36,6 @@ const WriteBtn = ({writtenDate, id, empty}) => {
 
     const mySubject = subject.filter((it) => it.userId === uid);
 
-    console.log(mySubject)
-
     const openBtns = () => { 
         setIsOpen(!isOpen)
     }

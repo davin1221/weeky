@@ -41,7 +41,7 @@ const NavBar = ({navLeft}) => {
   const handleLogout = async () => { 
     try {
       await signOut(auth);
-      navigate('/login');
+      navigate('/');
   } catch(err){
       console.error(err);
   }
@@ -53,7 +53,7 @@ const NavBar = ({navLeft}) => {
         {navLeft}
       </span>
 
-      <span className="logo_area" onClick={() => {navigate("/");}}>
+      <span className="logo_area" onClick={() => {navigate("/home");}}>
         <img src= {process.env.PUBLIC_URL + '/weeky_logo.png'} alt="logo_home"/>
       </span>
 

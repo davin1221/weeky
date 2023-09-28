@@ -22,7 +22,7 @@ const Login = () => {
     const handleLogin = async () => { 
         try{ 
             await signInWithEmailAndPassword(auth, email, password);
-            navigate('/');
+            navigate('/home');
         } catch(err){
             if (err.code == 'auth/invalid-email') {
                 alert('잘못된 이메일 형식입니다.');
