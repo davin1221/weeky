@@ -1,19 +1,28 @@
-import { useNavigate, useParams } from "react-router-dom";
-import BackBtn from "../components/BackBtn";
+// component 
 import NavBar from "../components/NavBar";
+import { useEffect, useState } from "react";
+
+// Hook 
+import { useNavigate, useParams } from "react-router-dom";
+
+// Font Awesome 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+
+// Firebase
 import { auth } from "../config/firebase";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { editWeekGoal, addWeekGoal, editDailyGoal, addDailyGoal } from "../store";
+
 
 const Editor = () => {
 
     const navigate = useNavigate();
 
+    // url 파라미터로 weekly, daily 정보 및 작성 날짜 가져오기 
     const {writtenDate} = useParams();
-
     const planCategory = writtenDate.slice(0,1);
     const [date, setDate] = useState(writtenDate.slice(2));
 
@@ -41,12 +50,14 @@ const Editor = () => {
         return state.subject;
     });
 
-    let dispatch = useDispatch(); // dispatch
+    let dispatch = useDispatch(); 
 
-    // 주제 가져오기 
+    // 주제 
     const mySubject = subject.filter((it)=> it.userId === uid);
 
-     // week 날짜 
+     
+     // 날짜 관리 --------------
+     // weekily 날짜 
      const [monday, setMonday] = useState(parseInt(date));
      const [sunday, setSunday] = useState( new Date(parseInt(date)).setDate( new Date(parseInt(date)).getDate() + 6 ) )
  
@@ -55,17 +66,21 @@ const Editor = () => {
      const [startDailyHour, setStartDailyHour] = useState(daliyDate.setHours(0,0,0,0));
      const [endDailyHour, setEndDailyHour] = useState(daliyDate.setHours(23,59,59,59));
      
+     // 화면 상단 날짜 정보
      const dateText = planCategory === "w" ? `${new Date(monday).getFullYear()}.${String(new Date(monday).getMonth()+1).padStart(2, "0")}.${String(new Date(monday).getDate()).padStart(2,"0")} ~ 
                        ${new Date(sunday).getFullYear()}.${String(new Date(sunday).getMonth()+1).padStart(2, "0")}.${String(new Date(sunday).getDate()).padStart(2,"0")}` 
                        : `${daliyDate.getFullYear()}. ${String(daliyDate.getMonth()+1).padStart(2,"0")}. ${String(daliyDate.getDate()).padStart(2,"0")}`;
  
-    // 계획 가져오기
+
+    // 계획  ---------------------
+    // 화면에 나타날 계획
     const [targetPlan, setTargetPlan] = useState([]);
 
     // 계획 데이터가 있는지 없는지 확인 
     const [isEmptyPlan, setIsEmptyPlan] = useState(false);
 
     useEffect(()=>{
+        // 새로운 타겟 : plan이 weekly인지 daily 인지 확인하여 해당 날짜에 맞는 plan을 targetPlan 설정 
         const newTarget = planCategory === "w" ? weekPlan.filter( (it)=> it.userId === uid && (monday <= it.writtenDate && it.writtenDate <= sunday)) 
                                                : dayPlan.filter( (it)=> it.userId === uid && (startDailyHour <= it.writtenDate && it.writtenDate <= endDailyHour));
         setTargetPlan(newTarget);

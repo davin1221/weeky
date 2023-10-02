@@ -1,30 +1,34 @@
+// Hook 
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
+// component 
 import BackBtn from "../components/BackBtn";
 import NavBar from "../components/NavBar";
-
-import { useSelector } from "react-redux";
-
+import WriteBtn from "../components/WriteBtn";
 import Goal from "../components/Goal";
 
+// Redux
+import { useSelector } from "react-redux";
+
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
-import { useEffect, useState } from "react";
-
+// Firebase
 import { auth } from "../config/firebase";
-import WriteBtn from "../components/WriteBtn";
 
-
+// 상세페이지 
 const WeekDetail = () => { 
 
+    // url 파라미터 사용하여 작성날짜 및 weekly/daily 확인 
     const {params} = useParams();
     const writtenDate = params.slice(2);
     const planCategory = params.slice(0,1);
 
-    // 해당 유저의 weekPlan, dayPaln, subject ----------------------------
     const [uid, setUid] = useState(); // user Id
 
+    // 날짜 ----------------------------
     // week 날짜 
     const [monday, setMonday] = useState(parseInt(writtenDate));
     const [sunday, setSunday] = useState( new Date(parseInt(writtenDate)).setDate( new Date(parseInt(writtenDate)).getDate() + 6 ) )
@@ -34,6 +38,7 @@ const WeekDetail = () => {
     const [startDailyHour, setStartDailyHour] = useState(daliyDate.setHours(0,0,0,0));
     const [endDailyHour, setEndDailyHour] = useState(daliyDate.setHours(23,59,59,59));
     
+    // 상단 날짜 정보 
     const dateText = planCategory === "w" ? `${new Date(monday).getFullYear()}.${String(new Date(monday).getMonth()+1).padStart(2, "0")}.${String(new Date(monday).getDate()).padStart(2,"0")} ~ 
                       ${new Date(sunday).getFullYear()}.${String(new Date(sunday).getMonth()+1).padStart(2, "0")}.${String(new Date(sunday).getDate()).padStart(2,"0")}` 
                       : `${daliyDate.getFullYear()}. ${String(daliyDate.getMonth()+1).padStart(2,"0")}. ${String(daliyDate.getDate()).padStart(2,"0")}`;
@@ -49,7 +54,7 @@ const WeekDetail = () => {
         return state.dayPlan;
     });
 
-
+    // 화면에 나타날 계획
     const [targetPlan, setTargetPlan] = useState([]);
 
      // userId가 null일때 오류 안나오게 하기
@@ -63,13 +68,14 @@ const WeekDetail = () => {
        
     }, []);
 
+    //  plan이 weekly인지 daily 인지 확인하여 해당 날짜에 맞는 plan을 targetPlan 설정(화면 정보 변경 시)
     useEffect(()=> { 
-
         const newTarget = planCategory === "w" ? weekPlan.filter( (it)=> it.userId === uid && (monday <= it.writtenDate && it.writtenDate <= sunday)) 
                                                : dayPlan.filter( (it)=> it.userId === uid && (startDailyHour <= it.writtenDate && it.writtenDate <= endDailyHour));
         setTargetPlan(newTarget);
     }, [uid, monday, daliyDate, weekPlan, dayPlan])
 
+    // 날짜 이동 
     const handleDate = (direction) => { 
         if(planCategory === "w") {
             if(direction === -1) {
@@ -106,6 +112,7 @@ const WeekDetail = () => {
         }
     }
 
+    //  plan이 weekly인지 daily 인지 확인하여 해당 날짜에 맞는 plan을 targetPlan 설정 (로딩 시)
     useEffect(()=>{ 
         const newTarget = planCategory === "w" ? weekPlan.filter( (it)=> it.userId === uid && (monday <= it.writtenDate && it.writtenDate <= sunday)) 
                                                : dayPlan.filter( (it)=> it.userId === uid && (startDailyHour <= it.writtenDate && it.writtenDate <= endDailyHour));

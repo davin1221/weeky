@@ -1,3 +1,4 @@
+// Hook 
 import React, { useEffect, useState } from "react";
 
 // components
@@ -20,10 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-
+// 주제 관리
 const MySubject = () =>{ 
-    
- 
+
     // redux ----------------------------
     let subject = useSelector((state)=> {return state.subject}) // store
     let dispatch = useDispatch(); // dispatch 
@@ -68,10 +68,6 @@ const MySubject = () =>{
     const handleDeleteSubject = (id) => { 
         dispatch(deleteSubject(id));
     }
-
-
-
-
 
     return <div className="MySubject">
 

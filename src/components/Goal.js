@@ -1,25 +1,27 @@
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
 import { handleGoalComplete } from "../store";
 import { handleDailyGoalComplete } from "../store";
 
-const Goal = ({ uid, id, writtenDate, goalId, complete, subject, content, needNavigate }) => {
+// 목표 아이템
+const Goal = ({ uid, id, goalId, complete, subject, content }) => {
 
-    // Redux 
+    // Redux ----------------------------
+    // 함수 Hook
     const dispatch = useDispatch();
 
+    // 주제(subject) 가져오기 
     const mySubject = useSelector((state) => {
         return state.subject.filter((it) => it.userId === uid);
     })
 
-    const navigate = useNavigate();
     
-    // goal complete 설정
+    // goal complete(목표 완료/미완료 설정) 
     const handleGoal = () =>{ 
-        console.log(id)
         if(id.substring(0,2) === "wp") {
             dispatch(handleGoalComplete({id, goalId}))
         } else { 

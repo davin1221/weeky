@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { auth, googleProvider } from '../config/firebase';
 
-// 어떤 메서드가 들어갈지(구글, 핸폰, 페북..)
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 
 
@@ -10,7 +9,6 @@ export const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // console.log(auth?.currentUser?.photoURL);
     console.log(auth?.currentUser?.email);
 
     const signIn = async () => { 

@@ -1,16 +1,21 @@
+// Component 
 import NavBar from "../components/NavBar";
+import Goal from "../components/Goal";
 
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
+// Hook 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Redux
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
+// Firebase
 import { auth } from "../config/firebase";
-import Goal from "../components/Goal";
+
 
 const Home = () => {
 
@@ -27,7 +32,7 @@ const Home = () => {
     return state.dayPlan;
   });
 
-  // 해당 유저의 weekPlan, dayPaln, subject ----------------------------
+
   const [uid, setUid] = useState(); // user Id
 
   // userId가 null일때 오류 안나오게 하기
@@ -40,11 +45,11 @@ const Home = () => {
     }
   }, []);
 
-  // 필터링
+  // 해당 유저 정보 필터링 
   const filteredWeekPlan = weekPlan.filter((it) => it.userId === uid);
   const filteredDayPlan = dayPlan.filter((it) => it.userId === uid);
 
-  //  주(week) 설정 ----------------------------
+  // 주(week) 설정 ----------------------------
   const [currentDate, setCurrentDate] = useState(new Date()); // 오늘 날짜 Thu Sep 07 2023 23:03:15 GMT+0900 (한국 표준시)
 
   const currentDay = currentDate.getDay(); // 오늘 요일 일 0 ~ 토 6

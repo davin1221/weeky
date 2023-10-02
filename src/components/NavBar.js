@@ -1,23 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faEye } from "@fortawesome/free-solid-svg-icons";
-
 import { auth } from "../config/firebase";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 const NavBar = ({navLeft}) => {
+
   const navigate = useNavigate();
 
-  // 햄버거 선택 여부
+  // 메뉴 선택 여부
   const [burger, setBurger] = useState("burger-bar unclicked");
   const [menu, setMenu] = useState("menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
-  // 메뉴 토글
+  // 메뉴 보임/숨김 설정
   const UpdateMenu = () => {
-
     if (!isMenuClicked) {
       setBurger("burger-bar clicked");
       setMenu("menu visible");
@@ -25,10 +22,10 @@ const NavBar = ({navLeft}) => {
       setBurger("burger-bar unclicked");
       setMenu("menu hidden");
     }
-
     setIsMenuClicked(!isMenuClicked);
   };
 
+  // url이 변경되었을 때 메뉴 숨김 설정(없으면 열린채로 따라다님)
   useEffect(()=> {
     if(isMenuClicked) { 
         setIsMenuClicked(false);
@@ -37,7 +34,7 @@ const NavBar = ({navLeft}) => {
   },[window.location.pathname]);
   
 
-  // 로그아웃
+  // 로그아웃 
   const handleLogout = async () => { 
     try {
       await signOut(auth);

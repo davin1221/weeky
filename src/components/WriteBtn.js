@@ -1,24 +1,44 @@
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import  { faPen, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+
+// Redux
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteWeekGoals, deletedailyGoals } from "../store";
 import { useDispatch, useSelector } from "react-redux";
+
+// Firebase 
 import { auth } from "../config/firebase";
 
+// 작성 버튼 
 const WriteBtn = ({writtenDate, id, empty}) => {
 
+    // 작성 버튼 상태 (false : 숨김 / true : 보임)
     const [isOpen, setIsOpen] = useState(false);
 
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
+    
 
+    // url 파라미터 - 해당 화면이 weekly인지 daily인지 확인 
     const {params} = useParams();
     const planCategory = params.slice(0,1);
 
-    // subject 검사(하나라도 만들지 않으면 계획 작성 불가)
-    const [uid, setUid] = useState(); // user Id
+    //  user Id 정보-------------------------------
+    const [uid, setUid] = useState(); 
+
+    // Redux ------------------------
+    // 함수 Hook
+    const dispatch = useDispatch();
+ 
+    // 주제(subject) 가져오기 
+    const subject = useSelector((state) => {
+        return state.subject;
+    });
+
+    // 주제(subject) 해당 유저 정보 필터링
+    const mySubject = subject.filter((it) => it.userId === uid);
 
     // userId가 null일때 오류 안나오게 하기
     useEffect(() => {
@@ -30,18 +50,14 @@ const WriteBtn = ({writtenDate, id, empty}) => {
         }
     }, []);
 
-    const subject = useSelector((state) => {
-        return state.subject;
-    });
-
-    const mySubject = subject.filter((it) => it.userId === uid);
-
+    // 작성버튼 상태 관리 
     const openBtns = () => { 
         setIsOpen(!isOpen)
     }
     
+    // 에디터 이동
     const navigateEditor = () => { 
-        
+        // subject 검사(하나라도 만들지 않으면 계획 작성 불가) 
         if(mySubject.length === 0) { 
             alert("subject를 하나 이상 만들어주세요");
             navigate(`/mySubject`);
