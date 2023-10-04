@@ -1,4 +1,8 @@
-__Demo__ https://dv-weeky.web.app/
+__Demo__ https://dv-weeky.web.app/ 
+<br>
+-test 계정- <br>
+ID: test@gmail.com <br>
+PW: password
 
 <div align=>
    <h2>📚 Tech Stack 📚</h2>
@@ -63,7 +67,7 @@ __Demo__ https://dv-weeky.web.app/
        </ul>
      </li>
      <li>
-       에디터(수정/작성)
+       <a href="#에디터">에디터(수정/작성)</a>
        <ul>
          <li>선택된 날짜의 데이터 가져오기</li>
          <li>작성된 정보 수정/삭제 및 새로 작성</li>
@@ -116,5 +120,16 @@ __Demo__ https://dv-weeky.web.app/
 <img width="457" alt="삭제할데이터없음" src="https://github.com/jhj-sharon/art_stroke/assets/123581946/a0393f92-ee6b-4782-9156-4a31f9d4893d">
 
 <br><br>
+<h4>에디터</h4>
+<span>- 날짜 이동(weekly는 1주 단위, daily는 1일 단위)</span><br>
 
+![에디터날짜이동](https://github.com/jhj-sharon/art_stroke/assets/123581946/7468db4d-b42e-440c-bf56-d84670a0a85c)
+<br>
+<span>- 선택된 날짜의 데이터를 가져와 불러와 작성/수정 및 삭제가 가능하다.</span><br>
+
+![에디터수정](https://github.com/jhj-sharon/art_stroke/assets/123581946/c873c08e-5a7c-4281-89ba-6fdf8d4b2d87)
+<br>
+
+*만약, 만들어진 주제(subject)가 하나도 없다면 작성 및 수정이 불가하다.* <br>
+<img width="458" alt="subject하나이상만들어야함" src="https://github.com/jhj-sharon/art_stroke/assets/123581946/4874aefc-105f-4870-b297-c1eb309b41c0">
 
