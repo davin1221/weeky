@@ -1,6 +1,5 @@
 __Demo__ https://dv-weeky.web.app/
 
-
 <div align=>
    <h2>📚 Tech Stack 📚</h2>
 </div>
@@ -30,13 +29,11 @@ __Demo__ https://dv-weeky.web.app/
 </div>
 
 <br>
-
-<div >
+<div>
    <h2>💫 기능 소개 💫</h2>
   <div>
    <ul>
-     <li>
-       로그인 및 회원가입(firebase)
+      <li><a href="#로그인-및-회원가입">로그인 및 회원가입</a></li>
        <ul>
          <li>일반, 구글 회원가입/회원가입</li>
          <li>정규표현식 사용하여 메일 형식 검사</li>
@@ -74,5 +71,28 @@ __Demo__ https://dv-weeky.web.app/
    </ul>
   </div>
 </div>
+
+<br>
+<h2>💫 기능 소개 💫</h2>
+<h6>로그인 및 회원가입</h6>
+
+![홈화면](https://github.com/jhj-sharon/art_stroke/assets/123581946/c57f6ae8-2f2a-476e-b063-932d59a03c65)
+   </li>
+</ul>
+<p>2. 홈화면</p>
+<br>
+
+
+
+<p>3. 주제(subject) 관리</p>
+<br>
+   
+![주제추가](https://github.com/jhj-sharon/art_stroke/assets/123581946/37295183-a422-4203-976c-51df8b056e5b) 
+
+*중복된 주제는 추가할 수 없다.* <br>
+<img width="459" alt="중복된주제선택불가" src="https://github.com/jhj-sharon/art_stroke/assets/123581946/df72865c-0f4f-4a94-8e16-944882c8d7ef">
+
+<span></span>
+
 
 
